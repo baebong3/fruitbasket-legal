@@ -1,169 +1,154 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>과일바구니 정책 센터 · Privacy · Terms · Data · Affiliate</title>
   <meta name="description" content="과일바구니의 개인정보 처리방침, 서비스 이용약관, 데이터 출처 및 고지, 수익 고지(어필리에이트)를 안내합니다.">
   <meta name="color-scheme" content="light dark" />
 
-  <!-- ✅ Link preview / SEO -->
-  <link rel="canonical" href="https://fruitbasket-legal.org/">
-  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://fruitbasket-legal.pages.dev/"> <meta name="robots" content="index,follow">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:site_name" content="과일바구니 정책 센터">
   <meta property="og:title" content="과일바구니 정책 센터">
   <meta property="og:description" content="과일바구니의 개인정보 처리방침, 이용약관, 데이터 출처, 제휴 수익 고지를 한 곳에서 확인하세요.">
-  <meta property="og:url" content="https://fruitbasket-legal.org/">
-  <!-- og:image는 실제 파일을 레포 루트에 og.png로 두는 걸 권장 -->
-  <meta property="og:image" content="https://fruitbasket-legal.org/og.png">
-  <meta property="og:image:alt" content="과일바구니 정책 센터 미리보기 이미지">
+  <meta property="og:url" content="https://fruitbasket-legal.pages.dev/"> <meta property="og:image" content="https://fruitbasket-legal.pages.dev/og.png"> <meta property="og:image:alt" content="과일바구니 정책 센터 미리보기 이미지">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="과일바구니 정책 센터">
   <meta name="twitter:description" content="개인정보, 약관, 데이터 출처, 제휴 수익 고지 안내.">
-  <meta name="twitter:image" content="https://fruitbasket-legal.org/og.png">
-
-  <!-- ✅ 주소창/탭 아이콘 -->
-  <link rel="icon" href="/favicon.ico">
+  <meta name="twitter:image" content="https://fruitbasket-legal.pages.dev/og.png"> <link rel="icon" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <!-- 라이트/다크 테마별 주소창 색상 -->
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#10b981">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b1220">
 
   <style>
     :root{
-      --bg:#ffffff; --text:#0b1220; --sub:#64748B; --card:#f8fafc; --border:#e2e8f0;
-      --accent:#10b981; /* 초록 */
-      --accent2:#f59e0b; /* 오렌지 */
-      --accent3:#2563EB; /* 블루 */
-      --chip:#eef2ff;
-      --maxw:880px;
+    --bg:#ffffff; --text:#0b1220; --sub:#64748B; --card:#f8fafc; --border:#e2e8f0;
     }
     @media (prefers-color-scheme:dark){
-      :root{ --bg:#0b1220; --text:#e5efff; --sub:#94A3B8; --card:#0f172a; --border:#1e293b; --chip:#111827;}
+    :root{
+    --bg:#0b1220; --text:#e2e8f0; --sub:#94a3b8; --card:#1e293b; --border:#334155;
     }
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR", Arial, "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;}
-    .wrap{max-width:var(--maxw);margin:0 auto;padding:20px 16px 64px;}
-    header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;}
-    .brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.2px}
-    .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-size:20px}
-    nav{display:flex;flex-wrap:wrap;gap:8px}
-    nav a{display:inline-block;padding:8px 12px;border:1px solid var(--border);border-radius:999px;text-decoration:none;color:var(--text);font-weight:800;background:var(--card)}
-    nav a:hover{outline:2px solid color-mix(in oklab, var(--accent) 40%, transparent)}
-    .hero{padding:18px;border:1px solid var(--border);border-radius:16px;background:
-      linear-gradient(180deg,color-mix(in oklab,var(--accent) 10%, transparent), transparent 60%), var(--card);}
-    .hero h1{margin:0 0 6px 0;font-size:20px;letter-spacing:.2px}
-    .hero p{margin:4px 0;color:var(--sub);font-weight:700}
-    .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-    .chip{font-size:11px;font-weight:900;letter-spacing:.3px;border:1px solid var(--border);padding:6px 10px;border-radius:999px;background:var(--chip)}
-    section{margin-top:18px}
-    .card{border:1px solid var(--border);border-radius:14px;background:var(--card);padding:14px}
-    h2{margin:0 0 10px 0;font-size:16px;font-weight:900}
-    h3{margin:14px 0 6px 0;font-size:14px;font-weight:900}
-    p{margin:6px 0;line-height:1.6}
-    .muted{color:var(--sub);font-weight:700}
-    .foot{margin-top:18px;display:flex;justify-content:space-between;gap:10px;color:var(--sub);font-size:13px}
-    .link{color:var(--accent3);text-decoration:none;font-weight:900}
+    }
+    html{scroll-behavior:smooth}
+    body{
+    font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard Variable",Pretendard,Roboto,Noto Sans KR,Segoe UI,Malgun Gothic,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,sans-serif;
+    margin:0 auto;padding:48px 20px;max-width:720px;
+    background:var(--bg);color:var(--text);
+    word-break:keep-all;line-height:1.7;
+    }
+    h1,h2,h3{font-weight:800;line-height:1.4;margin-top:2.5em;margin-bottom:0.5em}
+    h1{font-size:2.5rem;margin-top:0}
+    h2{font-size:1.75rem;margin-top:3em}
+    h3{font-size:1.25rem;margin-top:2em}
+    p,li{font-size:1.05rem;color:var(--text)}
+    a{color:var(--text);font-weight:600;text-decoration:none}
+    footer{margin-top:48px;font-size:14px;color:var(--sub)}
+    nav{display:flex;flex-wrap:wrap;gap:8px 16px;margin:24px 0}
+    nav a{font-weight:700}
+    .intro{padding:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;font-size:15px;font-weight:600}
+    .link{color:var(--text);font-weight:600;text-decoration:underline;text-underline-offset:3px}
     .link:hover{text-decoration:underline}
     .divider{height:1px;background:var(--border);margin:16px 0}
     .kicker{font-size:12px;color:var(--sub);font-weight:800;margin-bottom:8px}
+    /* 작은 화면 여백 정리 */
     @media (max-width:420px){ .foot{flex-direction:column;gap:6px} }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <div class="logo">🍎</div>
-        <div>과일바구니 정책 센터</div>
-      </div>
-      <nav aria-label="문서 내 링크">
-        <a href="#privacy">개인정보</a>
-        <a href="#terms">이용약관</a>
-        <a href="#data">데이터 출처</a>
-        <a href="#affiliate">수익 고지</a>
-      </nav>
-    </header>
 
-    <div class="hero">
-      <h1>투명하게, 간단하게</h1>
-      <p>필수 정책을 한 곳에 모았습니다. 앱과 동일한 기준으로 운영합니다.</p>
-      <div class="chips">
-        <span class="chip">KAMIS 기반</span>
-        <span class="chip">개인정보 최소 수집</span>
-        <span class="chip">암호화 전송(SSL)</span>
-        <span class="chip">제휴 수익 고지</span>
-      </div>
-    </div>
+  <h1>🍎 과일바구니 정책 센터</h1>
+  <nav>
+    <a href="#privacy">개인정보</a>
+    <a href="#terms">이용약관</a>
+    <a href="#data">데이터 출처</a>
+    <a href="#affiliate">수익 고지</a>
+  </nav>
 
-    <!-- 개인정보 처리방침 -->
-    <section id="privacy" aria-labelledby="ttl-privacy">
-      <h2 id="ttl-privacy">개인정보 처리방침</h2>
-      <div class="card">
-        <div class="kicker">최종 업데이트: 2025-11-07</div>
-        <h3>1. 수집 항목 및 목적</h3>
-        <p>소셜 로그인 시 이메일·닉네임·플랫폼 고유 ID를 제공받을 수 있습니다. 서비스 이용 과정에서 광고 식별자, 접속 로그, 기기 정보가 수집될 수 있습니다. 목적은 계정 식별, 알림 전송, 서비스 개선 및 어뷰징 방지입니다.</p>
-        <h3>2. 보관 및 파기</h3>
-        <p>관련 법령을 제외하고 회원 탈퇴 시 즉시 파기합니다. 백업은 정기 보관 후 주기적으로 삭제됩니다.</p>
-        <h3>3. 제3자 제공/처리위탁</h3>
-        <p>법령상 요청 또는 서비스 제공에 필요한 범위(예: 푸시 전송·로그 분석)에 한해 필요한 정보만을 처리하며, 계약상 보안 의무를 부과합니다.</p>
-        <h3>4. 이용자 권리</h3>
-        <p>열람·정정·삭제·처리정지를 요청할 수 있으며, 문의는 <a class="link" href="mailto:baebong3@gmail.com">baebong3@gmail.com</a> 로 주세요.</p>
-        <h3>5. 안전성 확보조치</h3>
-        <p>전송 구간 SSL, 접근 권한 최소화, 키·비밀값은 서버 환경변수로 관리합니다.</p>
-      </div>
-    </section>
+  <div class="divider"></div>
 
-    <!-- 이용약관 -->
-    <section id="terms" aria-labelledby="ttl-terms">
-      <h2 id="ttl-terms">서비스 이용약관</h2>
-      <div class="card">
-        <h3>1. 목적</h3>
-        <p>‘과일바구니’(이하 “회사”)가 제공하는 서비스 이용과 관련하여 회사와 이용자 간 권리·의무 및 책임사항을 규정합니다.</p>
-        <h3>2. 서비스</h3>
-        <p>KAMIS 공개 자료를 가공·분석·시각화한 가격 지표 및 부가 기능을 제공합니다. 서비스 내용·운영 시간은 변경 또는 중단될 수 있습니다.</p>
-        <h3>3. 책임의 한계</h3>
-        <p>정보의 정확성·완전성·적시성을 보증하지 않으며, 제공 정보는 참고용입니다. 실제 거래·구매는 이용자 책임입니다.</p>
-        <h3>4. 외부 링크</h3>
-        <p>네이버/쿠팡 등 외부 쇼핑몰로 연결될 수 있으며, 상품·배송·환불 책임은 각 판매자에게 있습니다.</p>
-        <h3>5. 개인정보</h3>
-        <p>개인정보 처리방침을 따릅니다.</p>
-        <h3>6. 분쟁</h3>
-        <p>대한민국 법령을 따르며, 관할은 민사소송법상 법원으로 합니다.</p>
-      </div>
-    </section>
-
-    <!-- 데이터 출처 및 고지 -->
-    <section id="data" aria-labelledby="ttl-data">
-      <h2 id="ttl-data">데이터 출처 및 고지</h2>
-      <div class="card">
-        <h3>1. 출처</h3>
-        <p>한국농수산식품유통공사(KAMIS) 공개 자료를 기반으로 가공·시각화하여 제공합니다.</p>
-        <h3>2. 가공 방식(요약)</h3>
-        <p>중복/결측 정리, 단위 표기 통일(원), 대표행 선정(품종·등급·상품번호 우선), 최근 7/30/365일 시계열 표시 및 기준가 초과 구간 강조 등.</p>
-        <h3>3. 지표의 성격</h3>
-        <p>참고용 지표입니다. 실제 구매가는 지역·유통·행사에 따라 다를 수 있으며, 제공처/네트워크 사정으로 업데이트 지연이 발생할 수 있습니다.</p>
-      </div>
-    </section>
-
-    <!-- 수익 고지 -->
-    <section id="affiliate" aria-labelledby="ttl-affiliate">
-      <h2 id="ttl-affiliate">수익 고지(어필리에이트)</h2>
-      <div class="card">
-        <h3>1. 제휴 링크</h3>
-        <p>일부 외부 쇼핑몰 링크는 제휴(어필리에이트) 링크일 수 있으며, 이용자가 구매하면 회사가 일정 수수료를 받을 수 있습니다. 이용자 지불 가격에는 영향을 주지 않습니다.</p>
-        <h3>2. 독립성</h3>
-        <p>가격 정보·정렬·표시는 제휴 여부와 무관하게 설계되며, 광고/제휴임을 인지할 수 있도록 적절한 표기를 제공합니다.</p>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-    <footer class="foot">
-      <div class="muted">© 과일바구니 · 문의 <a class="link" href="mailto:baebong3@gmail.com">baebong3@gmail.com</a></div>
-      <div><a class="link" href="#privacy">개인정보</a> · <a class="link" href="#terms">약관</a> · <a class="link" href="#data">데이터</a> · <a class="link" href="#affiliate">수익</a></div>
-    </footer>
+  <div class="intro">
+    <span>KAMIS 기반</span>
+    <span>개인정보 최소 수집</span>
+    <span>암호화 전송(SSL)</span>
+    <span>제휴 수익 고지</span>
   </div>
+
+  <h2 id="privacy">개인정보 처리방침</h2>
+  <p class="kicker">최종 업데이트: 2025-11-07</p>
+  <h3>1. 수집 항목 및 목적</h3>
+  <p>소셜 로그인 시 이메일·닉네임·플랫폼 고유 ID를 제공받을 수 있습니다. 서비스 이용 과정에서 광고 식별자, 접속 로그, 기기 정보가 수집될 수 있습니다. 목적은 계정 식별, 알림 전송, 서비스 개선 및 어뷰징 방지입니다.</p>
+  <h3>2. 보관 및 파기</h3>
+  <p>관련 법령을 제외하고 회원 탈퇴 시 즉시 파기합니다. 백업은 정기 보관 후 주기적으로 삭제됩니다.</p>
+  <h3>3. 제3자 제공/처리위탁</h3>
+  <p>법령상 요청 또는 서비스 제공에 필요한 범위(예: 푸시 전송·로그 분석)에 한해 필요한 정보만을 처리하며, 계약상 보안 의무를 부과합니다.</p>
+  <h3>4. 이용자 권리</h3>
+  <p>열람·정정·삭제·처리정지를 요청할 수 있으며, 문의는 <a href="mailto:baebong3@gmail.com" class="link">baebong3@gmail.com</a> 로 주세요.</p>
+  <h3>5. 안전성 확보조치</h3>
+  <p>전송 구간 SSL, 접근 권한 최소화, 키·비밀값은 서버 환경변수로 관리합니다.</p>
+
+  <div class="divider"></div>
+
+  <h2 id="terms">서비스 이용약관</h2>
+  <h3>1. 목적</h3>
+  <p>‘과일바구니’(이하 “회사”)가 제공하는 서비스 이용과 관련하여 회사와 이용자 간 권리·의무 및 책임사항을 규정합니다.</p>
+  <h3>2. 서비스</h3>
+  <p>KAMIS 공개 자료를 가공·분석·시각화한 가격 지표 및 부가 기능을 제공합니다. 서비스 내용·운영 시간은 변경 또는 중단될 수 있습니다.</p>
+  <h3>3. 책임의 한계</h3>
+  <p>정보의 정확성·완전성·적시성을 보증하지 않으며, 제공 정보는 참고용입니다. 실제 거래·구매는 이용자 책임입니다.</p>
+  <h3>4. 외부 링크</h3>
+  <p>네이버/쿠팡 등 외부 쇼핑몰로 연결될 수 있으며, 상품·배송·환불 책임은 각 판매자에게 있습니다.</p>
+  <h3>5. 개인정보</h3>
+  <p>개인정보 처리방침을 따릅니다.</p>
+  <h3>6. 분쟁</h3>
+  <p>대한민국 법령을 따르며, 관할은 민사소송법상 법원으로 합니다.</p>
+
+  <div class="divider"></div>
+
+  <h2 id="data">데이터 출처 및 고지</h2>
+  <h3>1. 출처</h3>
+  <p>한국농수산식품유통공사(KAMIS) 공개 자료를 기반으로 가공·시각화하여 제공합니다.</p>
+  <h3>2. 가공 방식(요약)</h3>
+  <p>중복/결측 정리, 단위 표기 통일(원), 대표행 선정(품종·등급·상품번호 우선), 최근 7/30/365일 시계열 표시 및 기준가 초과 구간 강조 등.</p>
+  <h3>3. 지표의 성격</h3>
+  <p>참고용 지표입니다. 실제 구매가는 지역·유통·행사에 따라 다를 수 있으며, 제공처/네트워크 사정으로 업데이트 지연이 발생할 수 있습니다.</p>
+
+  <div class="divider"></div>
+
+  <h2 id="affiliate">수익 고지(어필리에이트)</h2>
+  <h3>1. 제휴 링크</h3>
+  <p>일부 외부 쇼핑몰 링크는 제휴(어필리에이트) 링크일 수 있으며, 이용자가 구매하면 회사가 일정 수수료를 받을 수 있습니다. 이용자 지불 가격에는 영향을 주지 않습니다.</p>
+  <h3>2. 독립성</h3>
+  <p>가격 정보·정렬·표시는 제휴 여부와 무관하게 설계되며, 광고/제휴임을 인지할 수 있도록 적절한 표기를 제공합니다.</p>
+  
+  <div class="divider"></div>
+  <a href="https://link.coupang.com/a/c3NJnc" target="_blank" rel="noopener noreferrer" class="link">
+    <b>🛒 쿠팡 로켓프레시로 신선식품 쇼핑하기</b>
+  </a>
+  <p style="font-size: 12px; color: var(--sub); margin-top: 8px;">
+    이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.
+  </p>
+  <div class="divider"></div>
+  
+  <footer>
+    <div class="foot">
+      <span>© 과일바구니</span>
+      <span>·</span>
+      <span>문의 <a href="mailto:baebong3@gmail.com" class="link">baebong3@gmail.com</a></span>
+    </div>
+    <div class="foot" style="margin-top: 8px;">
+      <a href="#privacy" class="link">개인정보</a>
+      <span>·</span>
+      <a href="#terms" class="link">약관</a>
+      <span>·</span>
+      <a href="#data" class="link">데이터</a>
+      <span>·</span>
+      <a href="#affiliate" class="link">수익</a>
+    </div>
+  </footer>
+
 </body>
 </html>
