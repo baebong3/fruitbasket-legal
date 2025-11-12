@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>과일바구니 정책 센터 · Privacy · Terms · Data · Affiliate</title>
   <meta name="description" content="과일바구니의 개인정보 처리방침, 서비스 이용약관, 데이터 출처 및 고지, 수익 고지(어필리에이트)를 안내합니다.">
   <meta name="color-scheme" content="light dark" />
 
+  <!-- ✅ Link preview / SEO -->
   <link rel="canonical" href="https://fruitbasket-legal.org/">
   <meta name="robots" content="index,follow">
   <meta property="og:type" content="website">
@@ -23,50 +24,69 @@
   <meta name="twitter:description" content="개인정보, 약관, 데이터 출처, 제휴 수익 고지 안내.">
   <meta name="twitter:image" content="https://fruitbasket-legal.org/og.png">
 
+  <!-- ✅ 주소창/탭 아이콘 -->
   <link rel="icon" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <!-- 라이트/다크 테마별 주소창 색상 -->
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#10b981">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b1220">
 
   <style>
-    :root{
-    --bg:#ffffff; --text:#0b1220; --sub:#64748B; --card:#f8fafc; --border:#e2e8f0;
+    :root {
+      --bg:#ffffff; --text:#0b1220; --sub:#64748B; --card:#f8fafc; --border:#e2e8f0; --accent:#10b981;
     }
     @media (prefers-color-scheme:dark){
-    :root{
-    --bg:#0b1220; --text:#e2e8f0; --sub:#94a3b8; --card:#1e293b; --border:#334155;
+      :root { --bg:#0b1220; --text:#e2e8f0; --sub:#94a3b8; --card:#1e293b; --border:#334155; --accent:#22c55e; }
     }
+    html { scroll-behavior:smooth }
+    body {
+      font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard Variable",Pretendard,Roboto,Noto Sans KR,Segoe UI,Malgun Gothic,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,sans-serif;
+      margin:0 auto; padding:48px 20px; max-width:720px;
+      background:var(--bg); color:var(--text);
+      word-break:keep-all; line-height:1.7;
     }
-    html{scroll-behavior:smooth}
-    body{
-    font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard Variable",Pretendard,Roboto,Noto Sans KR,Segoe UI,Malgun Gothic,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,sans-serif;
-    margin:0 auto;padding:48px 20px;max-width:720px;
-    background:var(--bg);color:var(--text);
-    word-break:keep-all;line-height:1.7;
+    h1,h2,h3 { font-weight:800; line-height:1.4; margin-top:2.5em; margin-bottom:0.5em }
+    h1 { font-size:2.4rem; margin-top:0 }
+    h2 { font-size:1.7rem; margin-top:3em }
+    h3 { font-size:1.2rem; margin-top:2em }
+    p,li { font-size:1.05rem; color:var(--text) }
+    a { color:var(--text); font-weight:600; text-decoration:none }
+    nav { display:flex; flex-wrap:wrap; gap:8px 16px; margin:24px 0 }
+    nav a { font-weight:700 }
+    .intro {
+      padding:24px; background:var(--card); border:1px solid var(--border);
+      border-radius:12px; display:grid; grid-template-columns:1fr 1fr; gap:12px 20px;
+      font-size:15px; font-weight:600
     }
-    h1,h2,h3{font-weight:800;line-height:1.4;margin-top:2.5em;margin-bottom:0.5em}
-    h1{font-size:2.5rem;margin-top:0}
-    h2{font-size:1.75rem;margin-top:3em}
-    h3{font-size:1.25rem;margin-top:2em}
-    p,li{font-size:1.05rem;color:var(--text)}
-    a{color:var(--text);font-weight:600;text-decoration:none}
-    footer{margin-top:48px;font-size:14px;color:var(--sub)}
-    nav{display:flex;flex-wrap:wrap;gap:8px 16px;margin:24px 0}
-    nav a{font-weight:700}
-    .intro{padding:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;font-size:15px;font-weight:600}
-    .link{color:var(--text);font-weight:600;text-decoration:underline;text-underline-offset:3px}
-    .link:hover{text-decoration:underline}
-    .divider{height:1px;background:var(--border);margin:16px 0}
-    .kicker{font-size:12px;color:var(--sub);font-weight:800;margin-bottom:8px}
+    .link { color:var(--text); font-weight:600; text-decoration:underline; text-underline-offset:3px }
+    .link:hover { text-decoration:underline }
+    .divider { height:1px; background:var(--border); margin:16px 0 }
+    .kicker { font-size:12px; color:var(--sub); font-weight:800; margin-bottom:8px }
+    .foot { display:flex; gap:8px; align-items:center; flex-wrap:wrap }
+    /* CTA 버튼 (기존 톤 유지) */
+    .btn {
+      display:inline-block; padding:12px 16px; border-radius:10px;
+      background:var(--accent); color:white!important; font-weight:800; text-align:center;
+      border:1px solid color-mix(in oklab, var(--accent) 80%, black 20%);
+      transition:transform .05s ease;
+    }
+    .btn:active { transform:translateY(1px) }
+    /* 배너 박스 */
+    .ad {
+      background:var(--card); border:1px solid var(--border); border-radius:12px;
+      padding:16px; margin-top:12px;
+    }
+    .ad small { color:var(--sub); font-size:12px }
+    .ad img { width:100%; height:auto; display:block; border-radius:8px }
     /* 작은 화면 여백 정리 */
-    @media (max-width:420px){ .foot{flex-direction:column;gap:6px} }
+    @media (max-width:420px){ .foot{flex-direction:column; gap:6px} }
   </style>
 </head>
 <body>
 
   <h1>🍎 과일바구니 정책 센터</h1>
-  <nav>
+  <nav aria-label="섹션 바로가기">
     <a href="#privacy">개인정보</a>
     <a href="#terms">이용약관</a>
     <a href="#data">데이터 출처</a>
@@ -75,7 +95,7 @@
 
   <div class="divider"></div>
 
-  <div class="intro">
+  <div class="intro" aria-label="핵심 원칙">
     <span>KAMIS 기반</span>
     <span>개인정보 최소 수집</span>
     <span>암호화 전송(SSL)</span>
@@ -123,46 +143,51 @@
 
   <div class="divider"></div>
 
+  <!-- ✅ 쿠팡 파트너스: 지난 디자인 유지 + 최소 침습 삽입 -->
   <h2 id="affiliate">수익 고지(어필리에이트)</h2>
-  <h3>1. 제휴 링크</h3>
-  <p>일부 외부 쇼핑몰 링크는 제휴(어필리에이트) 링크일 수 있으며, 이용자가 구매하면 회사가 일정 수수료를 받을 수 있습니다. 이용자 지불 가격에는 영향을 주지 않습니다.</p>
-  <h3>2. 독립성</h3>
-  <p>가격 정보·정렬·표시는 제휴 여부와 무관하게 설계되며, 광고/제휴임을 인지할 수 있도록 적절한 표기를 제공합니다.</p>
-  
-  <div class="divider"></div>
 
-  <a href="https://link.coupang.com/a/c3OkVH" target="_blank" referrerpolicy="unsafe-url">
-    <img src="https://ads-partners.coupang.com/banners/940955?subId=&traceId=V0-301-371ae01f4226dec2-I940955&w=728&h=90" alt="쿠팡 로켓프레시 배너">
-  </a>
-
-  <a href="YOUR_COUPANG_URL_HERE" 
-     target="_blank" 
-     rel="noopener noreferrer" 
-     class="link" 
-     style="font-size: 1.1rem; font-weight: 700; display: block; margin-top: 12px;">
-    🛒 쿠팡 로켓프레시로 신선식품 쇼핑하기
-  </a>
-  
-  <p style="font-size: 12px; color: var(--sub); margin-top: 8px;">
-    이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.
+  <!-- 1) 텍스트 CTA (권장: 본인 파트너스 딥링크로 교체) -->
+  <p>
+    <a
+      href="https://link.coupang.com/a/c3OkVH"
+      target="_blank"
+      rel="sponsored noopener nofollow"
+      class="btn"
+      aria-label="쿠팡 로켓프레시로 이동 (파트너스 링크)"
+    >
+      🛒 쿠팡 로켓프레시로 신선식품 쇼핑하기
+    </a>
   </p>
 
-  <script src="https://ads-partners.coupang.com/g.js"></script>
+     <small data-nosnippet>
+      이 페이지에는 쿠팡 파트너스 제휴 링크가 포함되어 있으며, 해당 링크를 통해 구매 시
+      과일바구니는 일정액의 수수료를 받을 수 있습니다(이용자 부담 증가 없음).
+    </small>
+  </div>
+
+  <!-- 3) (선택) 동적 위젯 – 필요 시 YOUR_PARTNERS_ID_HERE 교체 후 사용 -->
+  <script async src="https://ads-partners.coupang.com/g.js"></script>
   <script>
-      new PartnersCoupang.G({
-          id: 1 // TODO: 발급받은 실제 ID로 변경하세요
-      });
+    // 동적 위젯을 쓰고 싶다면 id를 실제 파트너스 ID로 바꿔주세요.
+    // 위젯이 필요 없으면 이 블록은 삭제해도 됩니다.
+    window.addEventListener('load', function () {
+      if (window.PartnersCoupang && typeof window.PartnersCoupang.G === 'function') {
+        try {
+          new PartnersCoupang.G({ id: 'AF3710376' });
+        } catch (e) { /* 위젯 로드 실패 시 무시 (정적 배너/CTA가 이미 있음) */ }
+      }
+    });
   </script>
-  
+
   <div class="divider"></div>
-  
+
   <footer>
     <div class="foot">
       <span>© 과일바구니</span>
       <span>·</span>
       <span>문의 <a href="mailto:baebong3@gmail.com" class="link">baebong3@gmail.com</a></span>
     </div>
-    <div class="foot" style="margin-top: 8px;">
+    <div class="foot" style="margin-top:8px">
       <a href="#privacy" class="link">개인정보</a>
       <span>·</span>
       <a href="#terms" class="link">약관</a>
@@ -172,6 +197,5 @@
       <a href="#affiliate" class="link">수익</a>
     </div>
   </footer>
-
 </body>
 </html>
