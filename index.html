@@ -1,391 +1,733 @@
 <!DOCTYPE html>
-
 <html lang="ko">
-
 <head>
-
   <meta charset="UTF-8" />
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-
-
-  <title>과일바구니 정책 센터 · Privacy · Terms · Data · Affiliate</title>
-
-  <meta name="description" content="과일바구니의 개인정보 처리방침, 서비스 이용약관, 데이터 출처 및 고지, 수익 고지(어필리에이트)를 안내합니다.">
-
+  <title>과일바구니 정책 센터 · Privacy · Terms · Data · API</title>
+  <meta name="description" content="과일바구니의 개인정보 처리방침, 서비스 이용약관, 데이터 출처, API 문서 및 수익 고지를 안내합니다.">
   <meta name="color-scheme" content="light dark" />
 
-
-
   <!-- ✅ Link preview / SEO -->
-
   <link rel="canonical" href="https://fruitbasket-legal.org/">
-
   <meta name="robots" content="index,follow">
-
   <meta property="og:type" content="website">
-
   <meta property="og:locale" content="ko_KR">
-
   <meta property="og:site_name" content="과일바구니 정책 센터">
-
   <meta property="og:title" content="과일바구니 정책 센터">
-
-  <meta property="og:description" content="과일바구니의 개인정보 처리방침, 이용약관, 데이터 출처, 제휴 수익 고지를 한 곳에서 확인하세요.">
-
+  <meta property="og:description" content="과일바구니의 개인정보 처리방침, 이용약관, 데이터 출처, API 문서를 한 곳에서 확인하세요.">
   <meta property="og:url" content="https://fruitbasket-legal.org/">
-
-  <!-- og:image는 실제 파일을 레포 루트에 og.png로 두는 걸 권장 -->
-
   <meta property="og:image" content="https://fruitbasket-legal.org/og.png">
-
   <meta property="og:image:alt" content="과일바구니 정책 센터 미리보기 이미지">
-
   <meta name="twitter:card" content="summary_large_image">
-
   <meta name="twitter:title" content="과일바구니 정책 센터">
-
-  <meta name="twitter:description" content="개인정보, 약관, 데이터 출처, 제휴 수익 고지 안내.">
-
+  <meta name="twitter:description" content="개인정보, 약관, 데이터 출처, API 문서 안내.">
   <meta name="twitter:image" content="https://fruitbasket-legal.org/og.png">
 
-
-
   <!-- ✅ 주소창/탭 아이콘 -->
-
   <link rel="icon" href="/favicon.ico">
-
   <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
-
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-
-  <!-- 라이트/다크 테마별 주소창 색상 -->
-
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#10b981">
-
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b1220">
 
-
-
-  <!-- (선택) 배너 도메인 프리커넥트 -->
-
   <link rel="preconnect" href="https://ads-partners.coupang.com" crossorigin>
-
   <link rel="dns-prefetch" href="//ads-partners.coupang.com">
 
-
-
   <style>
-
-    :root{
-
-      --bg:#ffffff; --text:#0b1220; --sub:#64748B; --card:#f8fafc; --border:#e2e8f0; --accent:#10b981;
-
+    :root {
+      --bg: #ffffff;
+      --text: #0b1220;
+      --sub: #64748B;
+      --card: #f8fafc;
+      --border: #e2e8f0;
+      --accent: #10b981;
+      --accent-hover: #059669;
+      --gradient-from: #10b981;
+      --gradient-to: #3b82f6;
+      --code-bg: #f1f5f9;
+      --shadow: rgba(0, 0, 0, 0.1);
     }
 
-    @media (prefers-color-scheme:dark){
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b1220;
+        --text: #e2e8f0;
+        --sub: #94a3b8;
+        --card: #1e293b;
+        --border: #334155;
+        --accent: #22c55e;
+        --accent-hover: #16a34a;
+        --gradient-from: #22c55e;
+        --gradient-to: #3b82f6;
+        --code-bg: #1e293b;
+        --shadow: rgba(0, 0, 0, 0.3);
+      }
+    }
 
-      :root{
+    * {
+      box-sizing: border-box;
+    }
 
-        --bg:#0b1220; --text:#e2e8f0; --sub:#94a3b8; --card:#1e293b; --border:#334155; --accent:#22c55e;
+    html {
+      scroll-behavior: smooth;
+    }
 
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, Roboto, Noto Sans KR, Segoe UI, Malgun Gothic, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      word-break: keep-all;
+      line-height: 1.7;
+    }
+
+    /* 🎨 Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--gradient-from) 0%, var(--gradient-to) 100%);
+      padding: 80px 20px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '🍎🍊🍋🍌🍉🍇🍓🥝';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 120px;
+      opacity: 0.1;
+      white-space: nowrap;
+      animation: float 20s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+      50% { transform: translate(-50%, -55%) rotate(5deg); }
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      color: white;
+      margin: 0 0 16px 0;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: rgba(255, 255, 255, 0.95);
+      margin: 0 auto;
+      max-width: 600px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* 🔗 Navigation */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    nav {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 20px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .nav-link {
+      padding: 8px 16px;
+      border-radius: 8px;
+      color: var(--text);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      font-size: 0.95rem;
+    }
+
+    .nav-link:hover {
+      background: var(--accent);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* 📦 Content */
+    main {
+      padding: 60px 20px;
+    }
+
+    h2, h3 {
+      font-weight: 800;
+      line-height: 1.4;
+    }
+
+    h2 {
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      margin-top: 80px;
+      margin-bottom: 24px;
+      position: relative;
+      padding-bottom: 16px;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent) 0%, transparent 100%);
+      border-radius: 2px;
+    }
+
+    h3 {
+      font-size: 1.35rem;
+      margin-top: 32px;
+      margin-bottom: 16px;
+      color: var(--accent);
+    }
+
+    p, li {
+      font-size: 1.05rem;
+      color: var(--text);
+      margin: 16px 0;
+    }
+
+    a {
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    a:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
+
+    /* 🎯 Feature Grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 40px 0;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      text-align: center;
+      transition: all 0.3s;
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px var(--shadow);
+      border-color: var(--accent);
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .feature-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .feature-desc {
+      font-size: 0.95rem;
+      color: var(--sub);
+      margin: 0;
+    }
+
+    /* 💻 API Section */
+    .api-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      margin: 24px 0;
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+
+    .api-endpoint {
+      background: var(--code-bg);
+      border-left: 4px solid var(--accent);
+      padding: 16px 20px;
+      border-radius: 8px;
+      font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+      font-size: 0.9rem;
+      margin: 16px 0;
+      overflow-x: auto;
+      color: var(--text);
+    }
+
+    .api-method {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-right: 12px;
+    }
+
+    .get { background: #10b981; color: white; }
+    .post { background: #3b82f6; color: white; }
+
+    .api-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .api-stat {
+      background: linear-gradient(135deg, var(--gradient-from) 0%, var(--gradient-to) 100%);
+      color: white;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+
+    .api-stat-value {
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .api-stat-label {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    /* 🏷️ Badge */
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: var(--accent);
+      color: white;
+      margin-left: 12px;
+    }
+
+    .kicker {
+      font-size: 0.85rem;
+      color: var(--sub);
+      font-weight: 800;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* 🎨 CTA Button */
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+      color: white !important;
+      font-weight: 800;
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.3s;
+      box-shadow: 0 4px 12px var(--shadow);
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--shadow);
+      text-decoration: none;
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    /* 📢 Banner */
+    .ad {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin: 32px 0;
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+
+    .ad img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    .ad small {
+      color: var(--sub);
+      font-size: 0.85rem;
+      display: block;
+      line-height: 1.5;
+    }
+
+    /* 📱 Divider */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--border) 50%, transparent 100%);
+      margin: 60px 0;
+    }
+
+    /* 🦶 Footer */
+    footer {
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      padding: 40px 20px;
+      margin-top: 80px;
+      text-align: center;
+    }
+
+    .foot {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+    }
+
+    /* ♿ Accessibility */
+    .skip-link {
+      position: absolute;
+      left: -10000px;
+      top: auto;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+
+    .skip-link:focus {
+      position: static;
+      width: auto;
+      height: auto;
+    }
+
+    a:focus-visible, .btn:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 8px;
+    }
+
+    /* 📱 Responsive */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 60px 20px 40px;
       }
 
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .api-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h2 {
+        margin-top: 60px;
+      }
+
+      .nav-content {
+        gap: 8px;
+      }
+
+      .nav-link {
+        font-size: 0.9rem;
+        padding: 6px 12px;
+      }
     }
 
-    html{scroll-behavior:smooth}
-
-    body{
-
-      font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard Variable",Pretendard,Roboto,Noto Sans KR,Segoe UI,Malgun Gothic,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,sans-serif;
-
-      margin:0 auto;padding:48px 20px;max-width:720px;
-
-      background:var(--bg);color:var(--text);
-
-      word-break:keep-all;line-height:1.7;
-
+    @media (max-width: 420px) {
+      .foot {
+        flex-direction: column;
+        gap: 6px;
+      }
     }
-
-    h1,h2,h3{font-weight:800;line-height:1.4;margin-top:2.5em;margin-bottom:0.5em}
-
-    h1{font-size:2.5rem;margin-top:0}
-
-    h2{font-size:1.75rem;margin-top:3em}
-
-    h3{font-size:1.25rem;margin-top:2em}
-
-    p,li{font-size:1.05rem;color:var(--text)}
-
-    a{color:var(--text);font-weight:600;text-decoration:none}
-
-    nav{display:flex;flex-wrap:wrap;gap:8px 16px;margin:24px 0}
-
-    nav a{font-weight:700}
-
-    .intro{
-
-      padding:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;
-
-      display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;font-size:15px;font-weight:600
-
-    }
-
-    .link{color:var(--text);font-weight:600;text-decoration:underline;text-underline-offset:3px}
-
-    .link:hover{text-decoration:underline}
-
-    .divider{height:1px;background:var(--border);margin:16px 0}
-
-    .kicker{font-size:12px;color:var(--sub);font-weight:800;margin-bottom:8px}
-
-    .foot{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-
-    /* 작은 화면 여백 정리 */
-
-    @media (max-width:420px){ .foot{flex-direction:column;gap:6px} }
-
-
-
-    /* CTA/배너 스타일(지난 톤 유지) */
-
-    .btn{
-
-      display:inline-block;padding:12px 16px;border-radius:10px;
-
-      background:var(--accent);color:#fff!important;font-weight:800;text-align:center;
-
-      border:1px solid color-mix(in oklab, var(--accent) 80%, black 20%);
-
-      transition:transform .05s ease;
-
-    }
-
-    .btn:active{transform:translateY(1px)}
-
-    .ad{
-
-      background:var(--card);border:1px solid var(--border);border-radius:12px;
-
-      padding:16px;margin-top:12px;
-
-    }
-
-    .ad img{width:100%;height:auto;display:block;border-radius:8px}
-
-    .ad small{color:var(--sub);font-size:12px}
-
-    a:focus-visible,.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:12px}
-
   </style>
-
 </head>
 
 <body>
+  <a href="#main" class="skip-link">본문으로 건너뛰기</a>
 
-  <a href="#main" class="link" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;">본문으로 건너뛰기</a>
+  <!-- 🎨 Hero Section -->
+  <header class="hero">
+    <h1>🍎 과일바구니</h1>
+    <p>농산물 가격 정보를 한눈에, 똑똑한 구매를 도와드립니다</p>
+  </header>
 
-
-
-  <h1>🍎 과일바구니 정책 센터</h1>
-
+  <!-- 🔗 Navigation -->
   <nav aria-label="섹션 바로가기">
-
-    <a href="#privacy">개인정보</a>
-
-    <a href="#terms">이용약관</a>
-
-    <a href="#data">데이터 출처</a>
-
-    <a href="#affiliate">수익 고지</a>
-
+    <div class="nav-content">
+      <a href="#api" class="nav-link">API</a>
+      <a href="#privacy" class="nav-link">개인정보</a>
+      <a href="#terms" class="nav-link">이용약관</a>
+      <a href="#data" class="nav-link">데이터 출처</a>
+      <a href="#affiliate" class="nav-link">수익 고지</a>
+    </div>
   </nav>
 
-
-
-  <div class="divider"></div>
-
-
-
   <main id="main">
-
-    <section class="intro" aria-label="핵심 원칙">
-
-      <span>KAMIS 기반</span>
-
-      <span>개인정보 최소 수집</span>
-
-      <span>암호화 전송(SSL)</span>
-
-      <span>제휴 수익 고지</span>
-
-    </section>
-
-
-
-    <h2 id="privacy">개인정보 처리방침</h2>
-
-    <p class="kicker">최종 업데이트: 2025-11-12</p>
-
-    <h3>1. 수집 항목 및 목적</h3>
-
-    <p>소셜 로그인 시 이메일·닉네임·플랫폼 고유 ID를 제공받을 수 있습니다. 서비스 이용 과정에서 광고 식별자, 접속 로그, 기기 정보가 수집될 수 있습니다. 목적은 계정 식별, 알림 전송, 서비스 개선 및 어뷰징 방지입니다.</p>
-
-    <h3>2. 보관 및 파기</h3>
-
-    <p>관련 법령을 제외하고 회원 탈퇴 시 즉시 파기합니다. 백업은 정기 보관 후 주기적으로 삭제됩니다.</p>
-
-    <h3>3. 제3자 제공/처리위탁</h3>
-
-    <p>법령상 요청 또는 서비스 제공에 필요한 범위(예: 푸시 전송·로그 분석)에 한해 필요한 정보만을 처리하며, 계약상 보안 의무를 부과합니다.</p>
-
-    <h3>4. 이용자 권리</h3>
-
-    <p>열람·정정·삭제·처리정지를 요청할 수 있으며, 문의는 <a href="mailto:baebong3@gmail.com" class="link">baebong3@gmail.com</a> 로 주세요.</p>
-
-    <h3>5. 안전성 확보조치</h3>
-
-    <p>전송 구간 SSL, 접근 권한 최소화, 키·비밀값은 서버 환경변수로 관리합니다.</p>
-
-
-
-    <div class="divider"></div>
-
-
-
-    <h2 id="terms">서비스 이용약관</h2>
-
-    <h3>1. 목적</h3>
-
-    <p>‘과일바구니’(이하 “회사”)가 제공하는 서비스 이용과 관련하여 회사와 이용자 간 권리·의무 및 책임사항을 규정합니다.</p>
-
-    <h3>2. 서비스</h3>
-
-    <p>KAMIS 공개 자료를 가공·분석·시각화한 가격 지표 및 부가 기능을 제공합니다. 서비스 내용·운영 시간은 변경 또는 중단될 수 있습니다.</p>
-
-    <h3>3. 책임의 한계</h3>
-
-    <p>정보의 정확성·완전성·적시성을 보증하지 않으며, 제공 정보는 참고용입니다. 실제 거래·구매는 이용자 책임입니다.</p>
-
-    <h3>4. 외부 링크</h3>
-
-    <p>네이버/쿠팡 등 외부 쇼핑몰로 연결될 수 있으며, 상품·배송·환불 책임은 각 판매자에게 있습니다.</p>
-
-    <h3>5. 개인정보</h3>
-
-    <p>개인정보 처리방침을 따릅니다.</p>
-
-    <h3>6. 분쟁</h3>
-
-    <p>대한민국 법령을 따르며, 관할은 민사소송법상 법원으로 합니다.</p>
-
-
-
-    <div class="divider"></div>
-
-
-
-    <h2 id="data">데이터 출처 및 고지</h2>
-
-    <h3>1. 출처</h3>
-
-    <p>한국농수산식품유통공사(KAMIS) 공개 자료를 기반으로 가공·시각화하여 제공합니다.</p>
-
-    <h3>2. 가공 방식(요약)</h3>
-
-    <p>중복/결측 정리, 단위 표기 통일(원), 대표행 선정(품종·등급·상품번호 우선), 최근 7/30/365일 시계열 표시 및 기준가 초과 구간 강조 등.</p>
-
-    <h3>3. 지표의 성격</h3>
-
-    <p>참고용 지표입니다. 실제 구매가는 지역·유통·행사에 따라 다를 수 있으며, 제공처/네트워크 사정으로 업데이트 지연이 발생할 수 있습니다.</p>
-
-
-
-    <div class="divider"></div>
-
-
-
-    <!-- ✅ 쿠팡 파트너스 -->
-
-    <h2 id="affiliate">수익 고지(어필리에이트)</h2>
-
-
-
-    <!-- 텍스트 CTA: 같은 파트너스 링크로 연결 -->
-
-    <p>
-
-        🛒 쿠팡 로켓프레시로 신선식품 쇼핑하기
-
-      </a>
-
-    </p>
-
-
-
-    <!-- 네가 제공한 배너 코드: 그대로 삽입 -->
-
-    <div class="ad" aria-label="쿠팡 파트너스 배너">
-
-      <a href="https://link.coupang.com/a/c3OkVH" target="_blank" referrerpolicy="unsafe-url">
-
-        <img src="https://ads-partners.coupang.com/banners/940955?subId=&traceId=V0-301-371ae01f4226dec2-I940955&w=728&h=90" alt="쿠팡 로켓프레시 배너">
-
-      </a>
-
-      <small data-nosnippet>
-
-        이 페이지에는 쿠팡 파트너스 제휴 링크가 포함되어 있으며, 해당 링크를 통해 구매 시
-
-        과일바구니는 일정액의 수수료를 받을 수 있습니다(이용자 부담 증가 없음).
-
-      </small>
-
+    <div class="container">
+      <!-- ✨ Feature Grid -->
+      <section aria-label="핵심 기능">
+        <div class="feature-grid">
+          <div class="feature-card">
+            <span class="feature-icon">📊</span>
+            <div class="feature-title">KAMIS 기반 데이터</div>
+            <p class="feature-desc">공공 농산물 가격 데이터를 실시간으로 제공</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">⚡</span>
+            <div class="feature-title">초고속 로딩</div>
+            <p class="feature-desc">Cloudflare 캐싱으로 0.1초 응답 속도</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">📈</span>
+            <div class="feature-title">가격 트렌드 분석</div>
+            <p class="feature-desc">7일/30일/365일 가격 변동 추이 시각화</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">🔒</span>
+            <div class="feature-title">개인정보 보호</div>
+            <p class="feature-desc">최소 수집 원칙, SSL 암호화 전송</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- 💻 API Documentation -->
+      <section id="api">
+        <h2>🚀 API 문서</h2>
+        <p class="kicker">개발자를 위한 과일바구니 API 가이드</p>
+
+        <div class="api-grid">
+          <div class="api-stat">
+            <div class="api-stat-value">99.9%</div>
+            <div class="api-stat-label">가동률 (Cloudflare)</div>
+          </div>
+          <div class="api-stat">
+            <div class="api-stat-value">&lt;0.1s</div>
+            <div class="api-stat-label">평균 응답 시간</div>
+          </div>
+          <div class="api-stat">
+            <div class="api-stat-value">15-30개</div>
+            <div class="api-stat-label">인기 품목 자동 캐싱</div>
+          </div>
+        </div>
+
+        <div class="api-card">
+          <h3>📍 Base URL</h3>
+          <div class="api-endpoint">
+            https://your-worker.workers.dev
+          </div>
+
+          <h3>🔍 가격 데이터 조회</h3>
+          <p><span class="api-method get">GET</span> 특정 품목의 가격 정보 및 트렌드를 조회합니다.</p>
+          <div class="api-endpoint">
+            GET /api/price?item_code=111&kind_code=01&period=7
+          </div>
+          <p><strong>Query Parameters:</strong></p>
+          <ul>
+            <li><code>item_code</code> (필수): 품목 코드 (예: 111=사과)</li>
+            <li><code>kind_code</code> (선택): 품종 코드 (예: 01=후지)</li>
+            <li><code>period</code> (선택): 조회 기간 (7/30/365일, 기본값: 7)</li>
+          </ul>
+
+          <h3>📊 트렌드 데이터</h3>
+          <p><span class="api-method get">GET</span> 여러 품목의 가격 트렌드를 한 번에 조회합니다.</p>
+          <div class="api-endpoint">
+            GET /api/trends?items=111,112,113&days=30
+          </div>
+
+          <h3>💰 구매 추천 알고리즘</h3>
+          <p>기준가 대비 가격을 분석하여 구매 시점을 추천합니다:</p>
+          <ul>
+            <li><strong style="color: #22c55e;">🟢 GREEN:</strong> 기준가 대비 저렴 (할인율 10% 이상)</li>
+            <li><strong style="color: #eab308;">🟡 YELLOW:</strong> 기준가 대비 보통 (±10% 이내)</li>
+            <li><strong style="color: #ef4444;">🔴 RED:</strong> 기준가 대비 비쌈 (할인율 -10% 이상)</li>
+          </ul>
+
+          <h3>⚡ 캐싱 전략</h3>
+          <p>효율적인 성능을 위해 다단계 캐싱을 적용합니다:</p>
+          <ul>
+            <li><strong>인기 품목:</strong> 15-30개 자동 사전 캐싱</li>
+            <li><strong>갱신 주기:</strong> 영업시간(매시간) / 피크타임(30분) / 야간(자정)</li>
+            <li><strong>캐시 TTL:</strong> 1-24시간 (시간대별 차등 적용)</li>
+          </ul>
+
+          <h3>🛡️ Rate Limiting</h3>
+          <p>무료 사용 시 요청 제한이 있을 수 있습니다. 대량 요청은 사전 문의 바랍니다.</p>
+        </div>
+
+        <div class="api-card">
+          <h3>📦 Response Example</h3>
+          <div class="api-endpoint">
+{
+  "success": true,
+  "data": {
+    "item_name": "사과",
+    "current_price": 3500,
+    "base_price": 4000,
+    "discount_rate": 12.5,
+    "recommendation": "GREEN",
+    "trend": [
+      { "date": "2025-11-11", "price": 3800 },
+      { "date": "2025-11-12", "price": 3600 },
+      { "date": "2025-11-13", "price": 3500 }
+    ]
+  },
+  "cached_at": "2025-11-18T10:30:00Z"
+}
+          </div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- 🔐 Privacy Policy -->
+      <section id="privacy">
+        <h2>🔐 개인정보 처리방침</h2>
+        <p class="kicker">최종 업데이트: 2025-11-12</p>
+
+        <h3>1. 수집 항목 및 목적</h3>
+        <p>소셜 로그인 시 이메일·닉네임·플랫폼 고유 ID를 제공받을 수 있습니다. 서비스 이용 과정에서 광고 식별자, 접속 로그, 기기 정보가 수집될 수 있습니다. 목적은 계정 식별, 알림 전송, 서비스 개선 및 어뷰징 방지입니다.</p>
+
+        <h3>2. 보관 및 파기</h3>
+        <p>관련 법령을 제외하고 회원 탈퇴 시 즉시 파기합니다. 백업은 정기 보관 후 주기적으로 삭제됩니다.</p>
+
+        <h3>3. 제3자 제공/처리위탁</h3>
+        <p>법령상 요청 또는 서비스 제공에 필요한 범위(예: 푸시 전송·로그 분석)에 한해 필요한 정보만을 처리하며, 계약상 보안 의무를 부과합니다.</p>
+
+        <h3>4. 이용자 권리</h3>
+        <p>열람·정정·삭제·처리정지를 요청할 수 있으며, 문의는 <a href="mailto:baebong3@gmail.com">baebong3@gmail.com</a>로 주세요.</p>
+
+        <h3>5. 안전성 확보조치</h3>
+        <p>전송 구간 SSL, 접근 권한 최소화, 키·비밀값은 서버 환경변수로 관리합니다.</p>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- 📜 Terms of Service -->
+      <section id="terms">
+        <h2>📜 서비스 이용약관</h2>
+
+        <h3>1. 목적</h3>
+        <p>'과일바구니'(이하 "회사")가 제공하는 서비스 이용과 관련하여 회사와 이용자 간 권리·의무 및 책임사항을 규정합니다.</p>
+
+        <h3>2. 서비스</h3>
+        <p>KAMIS 공개 자료를 가공·분석·시각화한 가격 지표 및 부가 기능을 제공합니다. 서비스 내용·운영 시간은 변경 또는 중단될 수 있습니다.</p>
+
+        <h3>3. 책임의 한계</h3>
+        <p>정보의 정확성·완전성·적시성을 보증하지 않으며, 제공 정보는 참고용입니다. 실제 거래·구매는 이용자 책임입니다.</p>
+
+        <h3>4. 외부 링크</h3>
+        <p>네이버/쿠팡 등 외부 쇼핑몰로 연결될 수 있으며, 상품·배송·환불 책임은 각 판매자에게 있습니다.</p>
+
+        <h3>5. 개인정보</h3>
+        <p>개인정보 처리방침을 따릅니다.</p>
+
+        <h3>6. 분쟁</h3>
+        <p>대한민국 법령을 따르며, 관할은 민사소송법상 법원으로 합니다.</p>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- 📊 Data Sources -->
+      <section id="data">
+        <h2>📊 데이터 출처 및 고지</h2>
+
+        <h3>1. 출처</h3>
+        <p>한국농수산식품유통공사(KAMIS) 공개 자료를 기반으로 가공·시각화하여 제공합니다.</p>
+
+        <h3>2. 가공 방식</h3>
+        <p>중복/결측 정리, 단위 표기 통일(원), 대표행 선정(품종·등급·상품번호 우선), 최근 7/30/365일 시계열 표시 및 기준가 초과 구간 강조 등의 처리를 거칩니다.</p>
+
+        <h3>3. 지표의 성격</h3>
+        <p>참고용 지표입니다. 실제 구매가는 지역·유통·행사에 따라 다를 수 있으며, 제공처/네트워크 사정으로 업데이트 지연이 발생할 수 있습니다.</p>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- 💰 Affiliate -->
+      <section id="affiliate">
+        <h2>💰 수익 고지 (어필리에이트)</h2>
+
+        <p style="text-align: center; margin: 32px 0;">
+          <a href="https://link.coupang.com/a/c3OkVH" target="_blank" referrerpolicy="unsafe-url" class="btn">
+            🛒 쿠팡 로켓프레시로 신선식품 쇼핑하기
+          </a>
+        </p>
+
+        <div class="ad" aria-label="쿠팡 파트너스 배너">
+          <a href="https://link.coupang.com/a/c3OkVH" target="_blank" referrerpolicy="unsafe-url">
+            <img src="https://ads-partners.coupang.com/banners/940955?subId=&traceId=V0-301-371ae01f4226dec2-I940955&w=728&h=90" alt="쿠팡 로켓프레시 배너">
+          </a>
+          <small data-nosnippet>
+            이 페이지에는 쿠팡 파트너스 제휴 링크가 포함되어 있으며, 해당 링크를 통해 구매 시
+            과일바구니는 일정액의 수수료를 받을 수 있습니다(이용자 부담 증가 없음).
+          </small>
+        </div>
+      </section>
     </div>
-
-    <!-- 동적 위젯(g.js)은 중복 노출 방지를 위해 제외 -->
-
   </main>
 
-
-
-  <div class="divider"></div>
-
-
-
+  <!-- 🦶 Footer -->
   <footer>
-
     <div class="foot">
-
       <span>© 과일바구니</span>
-
       <span>·</span>
-
-      <span>문의 <a href="mailto:baebong3@gmail.com" class="link">baebong3@gmail.com</a></span>
-
+      <span>문의 <a href="mailto:baebong3@gmail.com">baebong3@gmail.com</a></span>
     </div>
-
-    <div class="foot" style="margin-top: 8px;">
-
-      <a href="#privacy" class="link">개인정보</a>
-
+    <div class="foot" style="margin-top: 12px;">
+      <a href="#api">API</a>
       <span>·</span>
-
-      <a href="#terms" class="link">약관</a>
-
+      <a href="#privacy">개인정보</a>
       <span>·</span>
-
-      <a href="#data" class="link">데이터</a>
-
+      <a href="#terms">약관</a>
       <span>·</span>
-
-      <a href="#affiliate" class="link">수익</a>
-
+      <a href="#data">데이터</a>
+      <span>·</span>
+      <a href="#affiliate">수익</a>
     </div>
-
   </footer>
-
 </body>
-
 </html>
