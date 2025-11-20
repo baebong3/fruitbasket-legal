@@ -267,7 +267,7 @@
       margin: 0;
     }
 
-    /* 🍉 Snapshot (홈 상단 요약: 가격지수 + 오늘의 추천 + 쿠팡 버튼) */
+    /* 🍉 Snapshot (홈 상단 요약: 가격지수 + 오늘의 추천 + 쿠팡 버튼/배너) */
     .snapshot {
       margin-top: 40px;
       margin-bottom: 40px;
@@ -386,10 +386,10 @@
       font-variant-numeric: tabular-nums;
     }
 
-    .level-4 { background: rgba(34, 197, 94, 0.12); color: #16a34a; }
-    .level-3 { background: rgba(132, 204, 22, 0.16); color: #65a30d; }
-    .level-2 { background: rgba(234, 179, 8, 0.18); color: #b45309; }
-    .level-1 { background: rgba(248, 113, 113, 0.18); color: #dc2626; }
+    .level-4 { background: rgba(34, 197, 94, 0.12); color: #16a34a; }   /* 4단계: 가장 좋음 */
+    .level-3 { background: rgba(132, 204, 22, 0.16); color: #65a30d; }  /* 3단계: 꽤 좋음 */
+    .level-2 { background: rgba(234, 179, 8, 0.18); color: #b45309; }   /* 2단계: 보통 */
+    .level-1 { background: rgba(248, 113, 113, 0.18); color: #dc2626; } /* 1단계: 비싼 편 */
 
     .snap-empty {
       font-size: 0.85rem;
@@ -664,34 +664,35 @@
 
   <main id="main">
     <div class="container">
-      <!-- ✅ 홈 상단: 오늘의 가격 지수 + 추천 + 쿠팡 CTA -->
+      <!-- ✅ 홈 상단: 오늘의 가격 지수 + 추천 + 쿠팡 CTA/배너 -->
       <section id="snapshot" class="snapshot" aria-label="오늘의 가격 요약 및 추천">
         <div class="snapshot-header">
           <div class="snapshot-title">
             📊 오늘의 가격 지수 & 추천
           </div>
           <p class="snapshot-kicker">
-            과일바구니 앱의 <strong>살까말까 로직</strong>을 요약해서, 도·소매 각각 3개씩만 간단히 보여드립니다.
+            과일바구니 앱의 <strong>살까말까 4단계 로직</strong>을 요약해서,
+            <strong>카테고리별 가격 지수</strong>와 <strong>도·소매 추천 TOP 3</strong>를 간단히 보여드립니다.
           </p>
         </div>
 
         <div class="snapshot-grid">
           <div class="snapshot-card">
-            <h3>📈 가격 지수 TOP 3</h3>
+            <h3>📈 카테고리별 가격 지수</h3>
             <ul id="index-list" class="snapshot-list">
               <li class="snap-empty">데이터 준비 중입니다...</li>
             </ul>
           </div>
 
           <div class="snapshot-card">
-            <h3>🛒 오늘의 추천 · 소매</h3>
+            <h3>🛒 오늘의 추천 · 소매 TOP 3</h3>
             <ul id="retail-list" class="snapshot-list">
               <li class="snap-empty">데이터 준비 중입니다...</li>
             </ul>
           </div>
 
           <div class="snapshot-card">
-            <h3>📦 오늘의 추천 · 도매</h3>
+            <h3>📦 오늘의 추천 · 도매 TOP 3</h3>
             <ul id="wholesale-list" class="snapshot-list">
               <li class="snap-empty">데이터 준비 중입니다...</li>
             </ul>
@@ -712,6 +713,17 @@
             이 버튼에는 쿠팡 파트너스 제휴 링크가 포함되어 있으며, 해당 링크를 통해 구매 시
             과일바구니는 일정액의 수수료를 받을 수 있습니다(소비자 가격 변동 없음).
           </p>
+        </div>
+
+        <!-- 👇 스냅샷 섹션 안에도 쿠팡 배너 함께 노출 -->
+        <div class="ad" aria-label="쿠팡 파트너스 배너 (오늘의 추천)">
+          <a href="https://link.coupang.com/a/c3OkVH" target="_blank" referrerpolicy="unsafe-url">
+            <img src="https://ads-partners.coupang.com/banners/940955?subId=&traceId=V0-301-371ae01f4226dec2-I940955&w=728&h=90" alt="쿠팡 로켓프레시 배너">
+          </a>
+          <small data-nosnippet>
+            이 배너에는 쿠팡 파트너스 제휴 링크가 포함되어 있으며, 링크를 통해 구매 시 과일바구니는
+            일정액의 수수료를 받을 수 있습니다(이용자 부담 증가 없음).
+          </small>
         </div>
 
         <p class="snapshot-note">
@@ -793,12 +805,16 @@
           </div>
 
           <h3>💰 구매 추천 알고리즘</h3>
-          <p>기준가 대비 가격을 분석하여 구매 시점을 추천합니다:</p>
+          <p>기준가 대비 상대적인 가격 수준을 4단계로 나누어 구매 시점을 참고할 수 있는 지표를 제공합니다:</p>
           <ul>
-            <li><strong style="color: #22c55e;">🟢 GREEN:</strong> 기준가 대비 저렴 (할인율 10% 이상)</li>
-            <li><strong style="color: #eab308;">🟡 YELLOW:</strong> 기준가 대비 보통 (±10% 이내)</li>
-            <li><strong style="color: #ef4444;">🔴 RED:</strong> 기준가 대비 비쌈 (할인율 -10% 이상)</li>
+            <li><strong style="color: #22c55e;">🟢 GREEN (4단계)</strong>: 사두기 좋은 편</li>
+            <li><strong style="color: #a3e635;">🟡 YELLOW (3단계)</strong>: 무난하게 구매 가능</li>
+            <li><strong style="color: #f97316;">🟠 ORANGE (2단계)</strong>: 보통 수준, 상황에 따라 선택</li>
+            <li><strong style="color: #ef4444;">🔴 RED (1단계)</strong>: 평소보다 비싼 편, 신중한 구매 권장</li>
           </ul>
+          <p style="font-size:0.9rem;color:var(--sub);margin-top:8px;">
+            세부 산식·기준값은 내부 정책에 따라 조정되며, 외부에 공개하지 않습니다.
+          </p>
 
           <h3>⚡ 캐싱 전략</h3>
           <p>효율적인 성능을 위해 다단계 캐싱을 적용합니다:</p>
@@ -976,7 +992,7 @@
         return "비쌈";
       }
 
-      function renderList(id, items) {
+      function renderList(id, items, maxItems) {
         var el = document.getElementById(id);
         if (!el) return;
         if (!items || !items.length) {
@@ -984,13 +1000,49 @@
           return;
         }
 
-        el.innerHTML = items
+        var list = items;
+        if (typeof maxItems === "number" && maxItems > 0 && list.length > maxItems) {
+          list = list.slice(0, maxItems);
+        }
+
+        el.innerHTML = list
           .map(function (item) {
             var emoji = item.emoji || "🍎";
-            var name = item.name || item.label || item.item_name || "";
+            var name = item.name || item.label || item.category_name || item.item_name || "";
             var unit = item.unit || item.unit_name || "";
-            var price = formatPrice(item.price != null ? item.price : (item.today != null ? item.today : item.current_price));
-            var level = item.level != null ? item.level : (item.stageLevel != null ? item.stageLevel : item.stage);
+
+            // 가격 / 지수 값 결정
+            var hasIndexOnly =
+              item.index != null &&
+              item.price == null &&
+              item.today == null &&
+              item.current_price == null;
+
+            var priceText;
+            if (hasIndexOnly) {
+              // 카테고리별 "가격지수" 전용 표시
+              try {
+                var idx = Number(item.index);
+                priceText = "지수 " + (isNaN(idx) ? String(item.index) : idx.toFixed(1));
+              } catch {
+                priceText = "지수 " + String(item.index);
+              }
+            } else {
+              var priceValue =
+                item.price != null
+                  ? item.price
+                  : item.today != null
+                  ? item.today
+                  : item.current_price;
+              priceText = formatPrice(priceValue);
+            }
+
+            var level =
+              item.level != null
+                ? item.level
+                : item.stageLevel != null
+                ? item.stageLevel
+                : item.stage;
             if (level == null) level = 2;
 
             return (
@@ -1000,8 +1052,8 @@
                   '<span class="snap-name">' + name + '</span>' +
                 '</div>' +
                 '<div class="snap-meta">' +
-                  '<span class="snap-price">' + price + '</span>' +
-                  (unit ? '<span class="snap-unit">' + unit + '</span>' : "") +
+                  '<span class="snap-price">' + priceText + '</span>' +
+                  (unit && !hasIndexOnly ? '<span class="snap-unit">' + unit + '</span>' : "") +
                   '<span class="snap-level ' + levelClass(level) + '">' + levelLabel(level) + "</span>" +
                 "</div>" +
               "</li>"
@@ -1016,10 +1068,13 @@
           if (!res.ok) throw new Error("HTTP " + res.status);
           var json = await res.json();
 
-          // 서버 응답 형태에 맞춰 키만 조정해서 쓰면 됨
-          renderList("index-list", json.indexTop3 || json.index || []);
-          renderList("retail-list", json.retailTop3 || json.retail || []);
-          renderList("wholesale-list", json.wholesaleTop3 || json.wholesale || []);
+          // 가격지수: 가능한 경우 "모든 카테고리" 전체를 표기
+          var indexItems = json.indexAll || json.index || json.indexTop3 || [];
+          renderList("index-list", indexItems);
+
+          // 도소매 TOP 3
+          renderList("retail-list", json.retailTop3 || json.retail || [], 3);
+          renderList("wholesale-list", json.wholesaleTop3 || json.wholesale || [], 3);
         } catch (e) {
           console.warn("[Snapshot] load failed", e);
           ["index-list", "retail-list", "wholesale-list"].forEach(function (id) {
