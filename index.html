@@ -267,6 +267,155 @@
       margin: 0;
     }
 
+    /* 🍉 Snapshot (홈 상단 요약: 가격지수 + 오늘의 추천 + 쿠팡 버튼) */
+    .snapshot {
+      margin-top: 40px;
+      margin-bottom: 40px;
+    }
+
+    .snapshot-header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .snapshot-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .snapshot-kicker {
+      font-size: 0.95rem;
+      color: var(--sub);
+    }
+
+    .snapshot-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .snapshot-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 16px 14px;
+      box-shadow: 0 2px 10px var(--shadow);
+    }
+
+    .snapshot-card h3 {
+      margin: 0 0 8px 0;
+      font-size: 1rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text);
+    }
+
+    .snapshot-list {
+      list-style: none;
+      padding: 0;
+      margin: 4px 0 0;
+    }
+
+    .snapshot-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px dashed rgba(148, 163, 184, 0.4);
+      font-size: 0.9rem;
+    }
+
+    .snapshot-list li:last-child {
+      border-bottom: none;
+    }
+
+    .snap-main {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .snap-emoji {
+      font-size: 1.1rem;
+    }
+
+    .snap-name {
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .snap-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
+      margin-left: 8px;
+      flex-shrink: 0;
+    }
+
+    .snap-price {
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      font-size: 0.9rem;
+    }
+
+    .snap-unit {
+      font-size: 0.78rem;
+      color: var(--sub);
+    }
+
+    .snap-level {
+      padding: 2px 6px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .level-4 { background: rgba(34, 197, 94, 0.12); color: #16a34a; }
+    .level-3 { background: rgba(132, 204, 22, 0.16); color: #65a30d; }
+    .level-2 { background: rgba(234, 179, 8, 0.18); color: #b45309; }
+    .level-1 { background: rgba(248, 113, 113, 0.18); color: #dc2626; }
+
+    .snap-empty {
+      font-size: 0.85rem;
+      color: var(--sub);
+      padding: 4px 0 2px;
+    }
+
+    .snapshot-cta {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .snapshot-note {
+      font-size: 0.8rem;
+      color: var(--sub);
+      margin: 4px 0 0;
+    }
+
+    .snapshot-note strong {
+      font-weight: 800;
+    }
+
     /* 💻 API Section */
     .api-card {
       background: var(--card);
@@ -473,6 +622,15 @@
         font-size: 0.9rem;
         padding: 6px 12px;
       }
+
+      .snapshot {
+        margin-top: 24px;
+      }
+
+      .snapshot-cta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
 
     @media (max-width: 420px) {
@@ -506,6 +664,62 @@
 
   <main id="main">
     <div class="container">
+      <!-- ✅ 홈 상단: 오늘의 가격 지수 + 추천 + 쿠팡 CTA -->
+      <section id="snapshot" class="snapshot" aria-label="오늘의 가격 요약 및 추천">
+        <div class="snapshot-header">
+          <div class="snapshot-title">
+            📊 오늘의 가격 지수 & 추천
+          </div>
+          <p class="snapshot-kicker">
+            과일바구니 앱의 <strong>살까말까 로직</strong>을 요약해서, 도·소매 각각 3개씩만 간단히 보여드립니다.
+          </p>
+        </div>
+
+        <div class="snapshot-grid">
+          <div class="snapshot-card">
+            <h3>📈 가격 지수 TOP 3</h3>
+            <ul id="index-list" class="snapshot-list">
+              <li class="snap-empty">데이터 준비 중입니다...</li>
+            </ul>
+          </div>
+
+          <div class="snapshot-card">
+            <h3>🛒 오늘의 추천 · 소매</h3>
+            <ul id="retail-list" class="snapshot-list">
+              <li class="snap-empty">데이터 준비 중입니다...</li>
+            </ul>
+          </div>
+
+          <div class="snapshot-card">
+            <h3>📦 오늘의 추천 · 도매</h3>
+            <ul id="wholesale-list" class="snapshot-list">
+              <li class="snap-empty">데이터 준비 중입니다...</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="snapshot-cta">
+          <a
+            href="https://link.coupang.com/a/c3OkVH"
+            target="_blank"
+            rel="noopener noreferrer"
+            referrerpolicy="unsafe-url"
+            class="btn"
+          >
+            🛒 오늘 추천 상품 쿠팡에서 보기
+          </a>
+          <p class="snapshot-note" data-nosnippet>
+            이 버튼에는 쿠팡 파트너스 제휴 링크가 포함되어 있으며, 해당 링크를 통해 구매 시
+            과일바구니는 일정액의 수수료를 받을 수 있습니다(소비자 가격 변동 없음).
+          </p>
+        </div>
+
+        <p class="snapshot-note">
+          가격 지수와 추천은 KAMIS 공개 자료와 과일바구니 알고리즘을 기반으로 한 <strong>참고용 지표</strong>입니다.
+          실제 장바구니 가격은 지역·유통·행사 여부에 따라 달라질 수 있습니다.
+        </p>
+      </section>
+
       <!-- ✨ Feature Grid -->
       <section aria-label="핵심 기능">
         <div class="feature-grid">
@@ -563,7 +777,7 @@
           <h3>🔍 가격 데이터 조회</h3>
           <p><span class="api-method get">GET</span> 특정 품목의 가격 정보 및 트렌드를 조회합니다.</p>
           <div class="api-endpoint">
-            GET /api/price?item_code=111&kind_code=01&period=7
+            GET /api/price?item_code=111&amp;kind_code=01&amp;period=7
           </div>
           <p><strong>Query Parameters:</strong></p>
           <ul>
@@ -575,7 +789,7 @@
           <h3>📊 트렌드 데이터</h3>
           <p><span class="api-method get">GET</span> 여러 품목의 가격 트렌드를 한 번에 조회합니다.</p>
           <div class="api-endpoint">
-            GET /api/trends?items=111,112,113&days=30
+            GET /api/trends?items=111,112,113&amp;days=30
           </div>
 
           <h3>💰 구매 추천 알고리즘</h3>
@@ -729,5 +943,100 @@
       <a href="#affiliate">수익</a>
     </div>
   </footer>
+
+  <!-- 🍉 홈 상단 "오늘의 요약" 데이터 로딩 스크립트 -->
+  <script>
+    (function () {
+      // TODO: 실제 Cloudflare Worker의 "홈 요약" 엔드포인트로 교체
+      // 예) https://gwailbasket-api-dev.your-domain.workers.dev/home-summary
+      const API_URL = "https://gwailbasket-api-dev.example.com/home-summary";
+
+      function formatPrice(n) {
+        if (n == null || isNaN(n)) return "-";
+        try {
+          return Number(n).toLocaleString("ko-KR") + "원";
+        } catch {
+          return n + "원";
+        }
+      }
+
+      function levelClass(level) {
+        var lv = Number(level);
+        if (lv >= 4) return "level-4";
+        if (lv === 3) return "level-3";
+        if (lv === 2) return "level-2";
+        return "level-1";
+      }
+
+      function levelLabel(level) {
+        var lv = Number(level);
+        if (lv >= 4) return "좋음";
+        if (lv === 3) return "괜찮음";
+        if (lv === 2) return "보통";
+        return "비쌈";
+      }
+
+      function renderList(id, items) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        if (!items || !items.length) {
+          el.innerHTML = '<li class="snap-empty">데이터 준비 중입니다.</li>';
+          return;
+        }
+
+        el.innerHTML = items
+          .map(function (item) {
+            var emoji = item.emoji || "🍎";
+            var name = item.name || item.label || item.item_name || "";
+            var unit = item.unit || item.unit_name || "";
+            var price = formatPrice(item.price != null ? item.price : (item.today != null ? item.today : item.current_price));
+            var level = item.level != null ? item.level : (item.stageLevel != null ? item.stageLevel : item.stage);
+            if (level == null) level = 2;
+
+            return (
+              '<li>' +
+                '<div class="snap-main">' +
+                  '<span class="snap-emoji">' + emoji + '</span>' +
+                  '<span class="snap-name">' + name + '</span>' +
+                '</div>' +
+                '<div class="snap-meta">' +
+                  '<span class="snap-price">' + price + '</span>' +
+                  (unit ? '<span class="snap-unit">' + unit + '</span>' : "") +
+                  '<span class="snap-level ' + levelClass(level) + '">' + levelLabel(level) + "</span>" +
+                "</div>" +
+              "</li>"
+            );
+          })
+          .join("");
+      }
+
+      async function loadSnapshot() {
+        try {
+          var res = await fetch(API_URL, { cache: "no-store" });
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          var json = await res.json();
+
+          // 서버 응답 형태에 맞춰 키만 조정해서 쓰면 됨
+          renderList("index-list", json.indexTop3 || json.index || []);
+          renderList("retail-list", json.retailTop3 || json.retail || []);
+          renderList("wholesale-list", json.wholesaleTop3 || json.wholesale || []);
+        } catch (e) {
+          console.warn("[Snapshot] load failed", e);
+          ["index-list", "retail-list", "wholesale-list"].forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) {
+              el.innerHTML = '<li class="snap-empty">잠시 후 다시 시도해 주세요.</li>';
+            }
+          });
+        }
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", loadSnapshot);
+      } else {
+        loadSnapshot();
+      }
+    })();
+  </script>
 </body>
 </html>
