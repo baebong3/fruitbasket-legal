@@ -963,9 +963,8 @@
   <!-- 🍉 홈 상단 "오늘의 요약" 데이터 로딩 스크립트 -->
   <script>
     (function () {
-      // TODO: 실제 Cloudflare Worker의 "홈 요약" 엔드포인트로 교체
-      // 예) https://gwailbasket-api-dev.your-domain.workers.dev/home-summary
-      const API_URL = "https://gwailbasket-api-dev.example.com/home-summary";
+      // 실제 dev 워커 home-summary 엔드포인트
+      const API_URL = "https://gwailbasket-api-dev.bbbb33.workers.dev/home-summary";
 
       function formatPrice(n) {
         if (n == null || isNaN(n)) return "-";
@@ -992,11 +991,23 @@
         return "비쌈";
       }
 
+      // 응답 JSON에서 여러 후보 키 중 첫 번째 배열 골라오기
+      function pickArray(obj, keys) {
+        if (!obj) return [];
+        for (var i = 0; i < keys.length; i++) {
+          var k = keys[i];
+          if (Object.prototype.hasOwnProperty.call(obj, k) && Array.isArray(obj[k])) {
+            return obj[k];
+          }
+        }
+        return [];
+      }
+
       function renderList(id, items, maxItems) {
         var el = document.getElementById(id);
         if (!el) return;
         if (!items || !items.length) {
-          el.innerHTML = '<li class="snap-empty">데이터 준비 중입니다.</li>';
+          el.innerHTML = '<li class="snap-empty">데이터 준비 중입니다...</li>';
           return;
         }
 
@@ -1007,25 +1018,39 @@
 
         el.innerHTML = list
           .map(function (item) {
-            var emoji = item.emoji || "🍎";
-            var name = item.name || item.label || item.category_name || item.item_name || "";
-            var unit = item.unit || item.unit_name || "";
+            // ── 공통 필드 정리 ─────────────────────────
+            var emoji =
+              item.emoji ||
+              item.icon ||
+              "🍎";
 
-            // 가격 / 지수 값 결정
+            var name =
+              item.name ||
+              item.label ||
+              item.category_name ||
+              item.item_name2 ||
+              item.item_name ||
+              "";
+
+            var unit =
+              item.unit ||
+              item.unit_name ||
+              "";
+
+            // 가격 or 지수 판단
             var hasIndexOnly =
-              item.index != null &&
-              item.price == null &&
-              item.today == null &&
-              item.current_price == null;
+              item.index != null ||
+              item.price_index != null ||
+              unit === "지수";
 
             var priceText;
             if (hasIndexOnly) {
-              // 카테고리별 "가격지수" 전용 표시
+              var idx = item.index != null ? item.index : item.price_index;
               try {
-                var idx = Number(item.index);
-                priceText = "지수 " + (isNaN(idx) ? String(item.index) : idx.toFixed(1));
+                var num = Number(idx);
+                priceText = "지수 " + (isNaN(num) ? String(idx) : num.toFixed(1));
               } catch {
-                priceText = "지수 " + String(item.index);
+                priceText = "지수 " + String(idx);
               }
             } else {
               var priceValue =
@@ -1042,8 +1067,9 @@
                 ? item.level
                 : item.stageLevel != null
                 ? item.stageLevel
-                : item.stage;
-            if (level == null) level = 2;
+                : item.stage != null
+                ? item.stage
+                : 2;
 
             return (
               '<li>' +
@@ -1053,10 +1079,12 @@
                 '</div>' +
                 '<div class="snap-meta">' +
                   '<span class="snap-price">' + priceText + '</span>' +
-                  (unit && !hasIndexOnly ? '<span class="snap-unit">' + unit + '</span>' : "") +
+                  (!hasIndexOnly && unit
+                    ? '<span class="snap-unit">' + unit + '</span>'
+                    : "") +
                   '<span class="snap-level ' + levelClass(level) + '">' + levelLabel(level) + "</span>" +
-                "</div>" +
-              "</li>"
+                '</div>' +
+              '</li>'
             );
           })
           .join("");
@@ -1064,17 +1092,45 @@
 
       async function loadSnapshot() {
         try {
-          var res = await fetch(API_URL, { cache: "no-store" });
+          var res = await fetch(API_URL, {
+            mode: "cors",
+            cache: "no-store",
+            headers: { Accept: "application/json" }
+          });
           if (!res.ok) throw new Error("HTTP " + res.status);
+
           var json = await res.json();
 
-          // 가격지수: 가능한 경우 "모든 카테고리" 전체를 표기
-          var indexItems = json.indexAll || json.index || json.indexTop3 || [];
-          renderList("index-list", indexItems);
+          // /home-summary 현재 응답 구조:
+          // {
+          //   index: [...],
+          //   retailTop3: [...],
+          //   wholesaleTop3: [...],
+          //   generatedAt: "..."
+          // }
+          var indexItems = pickArray(json, [
+            "category_index",
+            "categories",
+            "indexAll",
+            "index",
+            "indexTop3"
+          ]);
 
-          // 도소매 TOP 3
-          renderList("retail-list", json.retailTop3 || json.retail || [], 3);
-          renderList("wholesale-list", json.wholesaleTop3 || json.wholesale || [], 3);
+          var retailItems = pickArray(json, [
+            "retail_top3",
+            "retailTop3",
+            "retail"
+          ]);
+
+          var wholesaleItems = pickArray(json, [
+            "wholesale_top3",
+            "wholesaleTop3",
+            "wholesale"
+          ]);
+
+          renderList("index-list", indexItems);
+          renderList("retail-list", retailItems, 3);
+          renderList("wholesale-list", wholesaleItems, 3);
         } catch (e) {
           console.warn("[Snapshot] load failed", e);
           ["index-list", "retail-list", "wholesale-list"].forEach(function (id) {
