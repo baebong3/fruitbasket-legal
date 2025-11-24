@@ -964,14 +964,11 @@
   <script>
     (function () {
       // ✅ Cloudflare Worker "홈 요약" 엔드포인트
-      // 지금은 dev 환경을 바라보게 두고, 나중에 prod로 바꾸면 됨.
       var API_URL = "https://gwailbasket-api-dev.bbbb33.workers.dev/home-summary";
 
       // 🔹 앱의 getItemEmoji와 공유하기 위한 형태의 맵
       //    key = "카테고리코드3자리:품목명"
-      //    → 실제 앱의 map.js 내용에 맞춰 여기를 채워주면 됨.
       var ITEM_EMOJI_BY_KEY = {
-        // 예시들 (필요에 따라 추가/수정):
         "110:쌀": "🍚",
         "210:배추": "🥬",
         "210:무": "🥕",
@@ -991,11 +988,6 @@
         "510:닭고기": "🍗",
         "510:계란": "🥚"
       };
-
-      // 👉 이 부분에 실제 프로젝트의 getItemEmoji에서 사용하는
-      //    내부 맵을 그대로 옮겨놓으면 앱/웹 완전 동일해짐.
-      // ex) getItemEmoji에서 쓰는 { category_code, item_name } 맵을
-      //     ITEM_EMOJI_BY_KEY에 그대로 merge.
 
       function formatPrice(n) {
         if (n == null || isNaN(n)) return "-";
@@ -1042,22 +1034,22 @@
           return ITEM_EMOJI_BY_KEY[key];
         }
 
-        // 카테고리 기반 fallback (앱의 기본 카테고리 이모지 느낌)
+        // 카테고리 기반 fallback
         var cat = "";
         if (item && item.category_code != null) {
           cat = String(item.category_code).slice(0, 3);
         }
 
         switch (cat) {
-          case "110": // 식량작물
+          case "110":
             return "🌾";
-          case "210": // 채소류
+          case "210":
             return "🥬";
-          case "310": // 과일류
+          case "310":
             return "🍎";
-          case "410": // 수산물
+          case "410":
             return "🐟";
-          case "510": // 축산물
+          case "510":
             return "🥩";
           default:
             return "🍎";
@@ -1092,21 +1084,20 @@
 
             var unit = item.unit || item.unit_name || "";
 
-            // 가격/지수 텍스트 결정
-            var onlyIndex =
-              item.index != null &&
-              item.price == null &&
-              item.today == null &&
-              item.current_price == null;
+            // 가격 / 지수 텍스트 결정
+            // 👉 index 값이 존재하면 무조건 "지수 XX.X점"으로 취급
+            var hasIndexOnly = item.index != null;
 
             var priceText;
-            if (onlyIndex) {
+            if (hasIndexOnly) {
               try {
                 var idx = Number(item.index);
                 priceText =
-                  "지수 " + (isNaN(idx) ? String(item.index) : idx.toFixed(1));
+                  "지수 " +
+                  (isNaN(idx) ? String(item.index) : idx.toFixed(1)) +
+                  "점";
               } catch {
-                priceText = "지수 " + String(item.index);
+                priceText = "지수 " + String(item.index) + "점";
               }
             } else {
               var priceValue =
@@ -1115,7 +1106,6 @@
                   : item.today != null
                   ? item.today
                   : item.current_price;
-
               priceText = formatPrice(priceValue);
             }
 
@@ -1135,7 +1125,7 @@
                 '</div>' +
                 '<div class="snap-meta">' +
                   '<span class="snap-price">' + priceText + '</span>' +
-                  (unit && !onlyIndex
+                  (unit && !hasIndexOnly
                     ? '<span class="snap-unit">' + unit + '</span>'
                     : "") +
                   '<span class="snap-level ' +
