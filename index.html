@@ -963,8 +963,39 @@
   <!-- 🍉 홈 상단 "오늘의 요약" 데이터 로딩 스크립트 -->
   <script>
     (function () {
-      // ✅ 실제 Cloudflare Worker "홈 요약" 엔드포인트
-      const API_URL = "https://gwailbasket-api-dev.bbbb33.workers.dev/home-summary";
+      // ✅ Cloudflare Worker "홈 요약" 엔드포인트
+      // 지금은 dev 환경을 바라보게 두고, 나중에 prod로 바꾸면 됨.
+      var API_URL = "https://gwailbasket-api-dev.bbbb33.workers.dev/home-summary";
+
+      // 🔹 앱의 getItemEmoji와 공유하기 위한 형태의 맵
+      //    key = "카테고리코드3자리:품목명"
+      //    → 실제 앱의 map.js 내용에 맞춰 여기를 채워주면 됨.
+      var ITEM_EMOJI_BY_KEY = {
+        // 예시들 (필요에 따라 추가/수정):
+        "110:쌀": "🍚",
+        "210:배추": "🥬",
+        "210:무": "🥕",
+        "210:양파": "🧅",
+        "210:감자": "🥔",
+        "310:사과": "🍎",
+        "310:배": "🍐",
+        "310:귤": "🍊",
+        "310:바나나": "🍌",
+        "310:딸기": "🍓",
+        "310:수박": "🍉",
+        "410:갈치": "🐟",
+        "410:고등어": "🐟",
+        "410:오징어": "🦑",
+        "510:쇠고기": "🥩",
+        "510:돼지고기": "🥓",
+        "510:닭고기": "🍗",
+        "510:계란": "🥚"
+      };
+
+      // 👉 이 부분에 실제 프로젝트의 getItemEmoji에서 사용하는
+      //    내부 맵을 그대로 옮겨놓으면 앱/웹 완전 동일해짐.
+      // ex) getItemEmoji에서 쓰는 { category_code, item_name } 맵을
+      //     ITEM_EMOJI_BY_KEY에 그대로 merge.
 
       function formatPrice(n) {
         if (n == null || isNaN(n)) return "-";
@@ -991,9 +1022,52 @@
         return "비쌈";
       }
 
+      function keyFromItem(item) {
+        // category_code 앞 3자리 (110, 210, ...)
+        var cat = "";
+        if (item && item.category_code != null) {
+          cat = String(item.category_code).slice(0, 3);
+        }
+        // "사과/부사", "사과(부사)" → "사과"만 뽑기
+        var rawName = item && (item.item_name || item.name || "");
+        var name = String(rawName).split(/[(/]/)[0].trim();
+        return cat + ":" + name;
+      }
+
+      function guessEmoji(item) {
+        if (item && item.emoji) return item.emoji;
+
+        var key = keyFromItem(item);
+        if (ITEM_EMOJI_BY_KEY[key]) {
+          return ITEM_EMOJI_BY_KEY[key];
+        }
+
+        // 카테고리 기반 fallback (앱의 기본 카테고리 이모지 느낌)
+        var cat = "";
+        if (item && item.category_code != null) {
+          cat = String(item.category_code).slice(0, 3);
+        }
+
+        switch (cat) {
+          case "110": // 식량작물
+            return "🌾";
+          case "210": // 채소류
+            return "🥬";
+          case "310": // 과일류
+            return "🍎";
+          case "410": // 수산물
+            return "🐟";
+          case "510": // 축산물
+            return "🥩";
+          default:
+            return "🍎";
+        }
+      }
+
       function renderList(id, items, maxItems) {
         var el = document.getElementById(id);
         if (!el) return;
+
         if (!items || !items.length) {
           el.innerHTML = '<li class="snap-empty">데이터 준비 중입니다.</li>';
           return;
@@ -1006,23 +1080,31 @@
 
         el.innerHTML = list
           .map(function (item) {
-            var emoji = item.emoji || "🍎";
-            var name = item.name || item.label || item.category_name || item.item_name || "";
+            var emoji = guessEmoji(item);
+
+            // 이름 우선순위: name → label → category_name → item_name
+            var name =
+              item.name ||
+              item.label ||
+              item.category_name ||
+              item.item_name ||
+              "";
+
             var unit = item.unit || item.unit_name || "";
 
-            // 가격 / 지수 값 결정
-            var hasIndexOnly =
+            // 가격/지수 텍스트 결정
+            var onlyIndex =
               item.index != null &&
               item.price == null &&
               item.today == null &&
               item.current_price == null;
 
             var priceText;
-            if (hasIndexOnly) {
-              // 카테고리별 "가격지수" 전용 표시
+            if (onlyIndex) {
               try {
                 var idx = Number(item.index);
-                priceText = "지수 " + (isNaN(idx) ? String(item.index) : idx.toFixed(1));
+                priceText =
+                  "지수 " + (isNaN(idx) ? String(item.index) : idx.toFixed(1));
               } catch {
                 priceText = "지수 " + String(item.index);
               }
@@ -1033,6 +1115,7 @@
                   : item.today != null
                   ? item.today
                   : item.current_price;
+
               priceText = formatPrice(priceValue);
             }
 
@@ -1052,10 +1135,16 @@
                 '</div>' +
                 '<div class="snap-meta">' +
                   '<span class="snap-price">' + priceText + '</span>' +
-                  (unit && !hasIndexOnly ? '<span class="snap-unit">' + unit + '</span>' : "") +
-                  '<span class="snap-level ' + levelClass(level) + '">' + levelLabel(level) + "</span>" +
-                "</div>" +
-              "</li>"
+                  (unit && !onlyIndex
+                    ? '<span class="snap-unit">' + unit + '</span>'
+                    : "") +
+                  '<span class="snap-level ' +
+                    levelClass(level) +
+                    '">' +
+                    levelLabel(level) +
+                  "</span>" +
+                '</div>' +
+              '</li>'
             );
           })
           .join("");
@@ -1065,23 +1154,29 @@
         try {
           var res = await fetch(API_URL, { cache: "no-store" });
           if (!res.ok) throw new Error("HTTP " + res.status);
+
           var json = await res.json();
+          console.log("[Snapshot] home-summary", json);
 
-          console.log("[Snapshot] summary", json); // ✅ 디버그 로그
+          // Worker /home-summary 구조:
+          // - indexAll: 카테고리별 지수 배열
+          // - retailTop3: 소매 TOP3
+          // - wholesaleTop3: 도매 TOP3
+          var indexItems =
+            json.indexAll || json.index || json.indexTop3 || [];
+          var retailItems = json.retailTop3 || json.retail || [];
+          var wholesaleItems = json.wholesaleTop3 || json.wholesale || [];
 
-          // 가격지수: 가능한 경우 "모든 카테고리" 전체를 표기
-          var indexItems = json.indexAll || json.index || json.indexTop3 || [];
           renderList("index-list", indexItems);
-
-          // 도소매 TOP 3
-          renderList("retail-list", json.retailTop3 || json.retail || [], 3);
-          renderList("wholesale-list", json.wholesaleTop3 || json.wholesale || [], 3);
+          renderList("retail-list", retailItems, 3);
+          renderList("wholesale-list", wholesaleItems, 3);
         } catch (e) {
           console.warn("[Snapshot] load failed", e);
           ["index-list", "retail-list", "wholesale-list"].forEach(function (id) {
             var el = document.getElementById(id);
             if (el) {
-              el.innerHTML = '<li class="snap-empty">잠시 후 다시 시도해 주세요.</li>';
+              el.innerHTML =
+                '<li class="snap-empty">잠시 후 다시 시도해 주세요.</li>';
             }
           });
         }
