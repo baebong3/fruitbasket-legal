@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <!-- ✅ Google Search Console 사이트 인증 메타태그 (새 토큰으로 교체 완료) -->
+  <!-- ✅ Google Search Console 사이트 인증 메타태그 -->
   <meta name="google-site-verification" content="pQLlgdbIUn-Ce0ZPy5NIDuh7PsDtmtGhqtkRrsqsZ3M" />
 
   <title>과일바구니 정책 센터 · Privacy · Terms · Data · API</title>
@@ -268,7 +268,7 @@
       margin: 0;
     }
 
-    /* 🍉 Snapshot (홈 상단 요약: 가격지수 + 오늘의 추천 + 쿠팡 버튼/배너) */
+    /* 🍉 Snapshot (홈 상단 요약: 가격지수 + 오늘의 추천) */
     .snapshot {
       margin-top: 40px;
       margin-bottom: 40px;
@@ -663,13 +663,506 @@
 
   <main id="main">
     <div class="container">
-      <!-- 이하 본문 동일 (생략 없이 기존 코드 유지) -->
-      <!-- … 전체 본문/스크립트 부분은 네가 준 그대로라서 수정 없이 뒀어 -->
-      <!-- (길어서 위에 다 붙여놨으니 그대로 사용하면 됨) -->
+      <section aria-label="과일바구니 정책 센터 소개">
+        <h2>과일바구니 정책 센터</h2>
+        <p>
+          과일바구니는 농산물·수산물·축산물 가격 정보를 바탕으로, 더 나은 구매 타이밍을 돕는
+          서비스입니다. 이 페이지에서는 <strong>개인정보 처리방침, 서비스 이용약관, 데이터 출처,
+          API 사용 안내, 수익 고지</strong>를 한 곳에서 확인하실 수 있습니다.
+        </p>
+
+        <div class="feature-grid">
+          <article class="feature-card">
+            <span class="feature-icon">🔐</span>
+            <h3 class="feature-title">개인정보</h3>
+            <p class="feature-desc">
+              최소한의 정보만 수집·보관하며, 제3자 제공·국외 이전 시에는 사전에 고지합니다.
+            </p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon">📜</span>
+            <h3 class="feature-title">이용약관</h3>
+            <p class="feature-desc">
+              서비스 이용 시 적용되는 기본 규칙과 책임 범위를 명시합니다.
+            </p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon">📊</span>
+            <h3 class="feature-title">데이터 출처</h3>
+            <p class="feature-desc">
+              KAMIS(농산물유통정보센터) 등 공공 데이터와 자체 정제 로직을 함께 사용합니다.
+            </p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon">🧩</span>
+            <h3 class="feature-title">API & 수익</h3>
+            <p class="feature-desc">
+              내부 API 구조와 제휴·광고 등 수익 모델을 투명하게 안내합니다.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 🍉 홈 상단 요약: 지수 + 오늘의 추천 (앱 홈과 동일 /home-summary 사용) -->
+      <section class="snapshot" id="snapshot">
+        <div class="snapshot-header">
+          <div class="snapshot-title">
+            오늘의 가격 한 눈에 보기
+            <span class="badge">앱 홈 데이터 그대로</span>
+          </div>
+          <p class="snapshot-kicker">
+            <span id="snapshot-price-date">조사일 불러오는 중…</span>
+          </p>
+        </div>
+
+        <div class="snapshot-grid">
+          <!-- 카테고리별 가격 지수 -->
+          <article class="snapshot-card" aria-labelledby="snapshot-index-title">
+            <h3 id="snapshot-index-title">📊 카테고리별 가격 지수</h3>
+            <ul class="snapshot-list" id="snapshot-index-list">
+              <li class="snap-empty">지수 정보를 불러오는 중입니다…</li>
+            </ul>
+          </article>
+
+          <!-- 소매 오늘의 추천 TOP3 -->
+          <article class="snapshot-card" aria-labelledby="snapshot-retail-title">
+            <h3 id="snapshot-retail-title">🛒 소매 오늘의 추천 TOP 3</h3>
+            <ul class="snapshot-list" id="snapshot-retail-list">
+              <li class="snap-empty">추천 품목을 불러오는 중입니다…</li>
+            </ul>
+          </article>
+
+          <!-- 도매 오늘의 추천 TOP3 -->
+          <article class="snapshot-card" aria-labelledby="snapshot-wholesale-title">
+            <h3 id="snapshot-wholesale-title">📦 도매 오늘의 추천 TOP 3</h3>
+            <ul class="snapshot-list" id="snapshot-wholesale-list">
+              <li class="snap-empty">추천 품목을 불러오는 중입니다…</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="snapshot-cta">
+          <div>
+            <p class="snapshot-note">
+              <strong>데이터 출처</strong> ·
+              KAMIS 농산물 유통정보센터 일일 가격 &nbsp;|&nbsp;
+              과일바구니 워커(<code>/home-summary</code>)에서 1시간 단위로 집계합니다.
+            </p>
+          </div>
+          <a
+            href="https://gwailbasket.app"
+            class="btn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            과일바구니 앱에서 더 자세히 보기
+          </a>
+        </div>
+      </section>
+
+      <div class="divider" aria-hidden="true"></div>
+
+      <!-- 💻 API 안내 -->
+      <section id="api" aria-labelledby="api-title">
+        <h2 id="api-title">과일바구니 API</h2>
+        <p>
+          과일바구니 앱은 Cloudflare Worker 기반의 내부 API를 통해 가격 정보를 수집·정제합니다.
+          외부 공개용 정식 오픈 API는 아니지만, 투명성을 위해 주요 엔드포인트 구조를 간략히 안내합니다.
+        </p>
+
+        <div class="api-card">
+          <p class="kicker">Endpoints</p>
+
+          <div class="api-endpoint">
+            <span class="api-method get">GET</span>
+            <code>https://gwailbasket-api-production.bbbb33.workers.dev/home-summary</code>
+            <br />
+            <small>앱 홈 화면 상단의 <strong>카테고리별 지수 + 오늘의 추천</strong> 데이터</small>
+          </div>
+
+          <div class="api-endpoint">
+            <span class="api-method get">GET</span>
+            <code>https://gwailbasket-api-production.bbbb33.workers.dev/prices?action=dailySalesList&amp;p_product_cls_code=01&amp;p_regday=YYYY-MM-DD</code>
+            <br />
+            <small>KAMIS <code>dailySalesList</code> 프록시 (소매/도매 일일 가격)</small>
+          </div>
+
+          <div class="api-endpoint">
+            <span class="api-method get">GET</span>
+            <code>https://gwailbasket-api-production.bbbb33.workers.dev/graphs?item_code=...</code>
+            <br />
+            <small>개별 품목 가격 추이 그래프용 시계열 데이터</small>
+          </div>
+
+          <p>간단한 테스트는 다음과 같이 수행할 수 있습니다.</p>
+          <div class="api-endpoint">
+<pre><code>curl "https://gwailbasket-api-production.bbbb33.workers.dev/home-summary" \
+  -H "Accept: application/json"</code></pre>
+          </div>
+
+          <div class="api-grid">
+            <div class="api-stat">
+              <div class="api-stat-value">1시간</div>
+              <div class="api-stat-label">워커 내부 집계 주기 (논리 TTL)</div>
+            </div>
+            <div class="api-stat">
+              <div class="api-stat-value">24시간</div>
+              <div class="api-stat-label">Cloudflare KV 물리 TTL</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider" aria-hidden="true"></div>
+
+      <!-- 🔐 개인정보 처리방침 -->
+      <section id="privacy" aria-labelledby="privacy-title">
+        <h2 id="privacy-title">개인정보 처리방침</h2>
+
+        <h3>1. 수집하는 개인정보 항목</h3>
+        <p>
+          과일바구니는 서비스 제공을 위해 다음과 같은 최소한의 개인정보를 수집할 수 있습니다.
+        </p>
+        <ul>
+          <li>필수: 이메일 주소, 애플/구글 계정 ID(소셜 로그인 시)</li>
+          <li>선택: 닉네임, 프로필 이미지</li>
+          <li>자동 수집: 접속 기기 정보, OS 종류, 앱 버전, 접속 IP, 이용 로그</li>
+        </ul>
+
+        <h3>2. 개인정보의 수집·이용 목적</h3>
+        <ul>
+          <li>회원 가입 및 본인 확인</li>
+          <li>서비스 제공 및 품목 즐겨찾기·알림 설정 유지</li>
+          <li>이용 통계 분석 및 서비스 품질 개선</li>
+          <li>부정 이용 방지 및 보안 강화</li>
+        </ul>
+
+        <h3>3. 보관 기간 및 파기</h3>
+        <ul>
+          <li>회원탈퇴 시: 관련 법령에서 별도 보관을 요구하지 않는 한, 지체 없이 파기</li>
+          <li>로그 기록: 통신비밀보호법 등 관련 법령에 따라 최대 1년 보관 후 파기</li>
+        </ul>
+
+        <h3>4. 제3자 제공 및 국외 이전</h3>
+        <p>
+          과일바구니는 원칙적으로 이용자의 동의 없이 개인정보를 제3자에게 제공하지 않습니다.
+          다만, 클라우드 인프라(Supabase, Cloudflare 등) 사용으로 인한 국외 이전이
+          발생할 수 있으며, 이 경우 관련 법령에 따른 보호조치를 취합니다.
+        </p>
+
+        <h3>5. 이용자의 권리</h3>
+        <ul>
+          <li>언제든지 개인정보 열람, 정정, 삭제를 요청할 수 있습니다.</li>
+          <li>앱 내 ‘계정 삭제’ 기능을 통해 직접 탈퇴 및 데이터 삭제를 요청할 수 있습니다.</li>
+        </ul>
+      </section>
+
+      <div class="divider" aria-hidden="true"></div>
+
+      <!-- 📜 이용약관 -->
+      <section id="terms" aria-labelledby="terms-title">
+        <h2 id="terms-title">서비스 이용약관</h2>
+
+        <h3>1. 서비스의 제공</h3>
+        <p>
+          과일바구니는 공공 데이터와 자체 가공 로직을 바탕으로 농산물 관련 가격 정보를
+          제공합니다. 제공되는 정보는 참고용이며, 실제 거래 가격과 차이가 발생할 수 있습니다.
+        </p>
+
+        <h3>2. 책임의 한계</h3>
+        <p>
+          가격 정보·지수·추천은 통계적·기술적 기준에 따라 산출되며,
+          특정 품목의 실제 거래 손익에 대해 법적 책임을 지지 않습니다.
+        </p>
+
+        <h3>3. 이용 제한</h3>
+        <ul>
+          <li>서비스를 리버스 엔지니어링하거나 무단으로 대량 크롤링하는 행위</li>
+          <li>서비스를 상업적 목적으로 재판매·재배포하는 행위</li>
+          <li>다른 이용자의 정상적인 이용을 방해하는 행위</li>
+        </ul>
+
+        <h3>4. 약관 변경</h3>
+        <p>
+          관련 법령 개정이나 서비스 정책 변경 시, 약관이 수정될 수 있으며
+          변경 내용은 이 페이지 및 앱 내 공지로 안내합니다.
+        </p>
+      </section>
+
+      <div class="divider" aria-hidden="true"></div>
+
+      <!-- 📊 데이터 출처 -->
+      <section id="data" aria-labelledby="data-title">
+        <h2 id="data-title">데이터 출처 및 정제 방식</h2>
+
+        <h3>1. 주요 데이터 출처</h3>
+        <ul>
+          <li>KAMIS 농산물유통정보 (일일 도·소매가격, 품목/등급 정보)</li>
+          <li>공개 통계자료 및 공공 데이터 포털 (필요시)</li>
+        </ul>
+
+        <h3>2. 정제 및 가공</h3>
+        <ul>
+          <li>Cloudflare Worker를 통해 KAMIS API를 프록시·캐싱</li>
+          <li>이상치(0원, 비정상 급등락 등) 필터링</li>
+          <li>카테고리·품목 코드를 내부 기준으로 정규화</li>
+          <li>최근 조사일 기준으로 주말·공휴일에도 가격이 비지 않도록 보정</li>
+        </ul>
+
+        <h3>3. 지수·추천 로직</h3>
+        <p>
+          앱의 <strong>살까말까, Spotlight, 오늘의 추천</strong>에는
+          KAMIS 가격의 이동 평균, 분산, z-score 등을 활용한 자체 로직이 적용됩니다.
+          세부 수식은 운영 정책 변경에 따라 수시로 조정될 수 있습니다.
+        </p>
+      </section>
+
+      <div class="divider" aria-hidden="true"></div>
+
+      <!-- 💸 수익 고지 / 쿠팡 파트너스 등 -->
+      <section id="affiliate" aria-labelledby="affiliate-title">
+        <h2 id="affiliate-title">수익 고지 · 제휴 안내</h2>
+
+        <h3>1. 쿠팡 파트너스</h3>
+        <div class="ad">
+          <!-- 여기에는 실제 쿠팡 파트너스 배너 스크립트를 삽입할 수 있습니다 -->
+          <img src="/coupang-banner-placeholder.png" alt="쿠팡 파트너스 예시 배너" />
+          <small>
+            과일바구니는 쿠팡 파트너스 활동을 통해 일정 금액의 수수료를
+            제공받을 수 있습니다. 이는 이용자 여러분께 추가 비용을 부과하지 않으며,
+            서비스 유지·개선에 사용됩니다.
+          </small>
+        </div>
+
+        <h3>2. 기타 광고 및 제휴</h3>
+        <p>
+          향후 배너 광고, 제휴 링크 등 기타 수익 모델이 추가될 경우,
+          이 섹션을 통해 유형과 기준을 투명하게 안내하겠습니다.
+        </p>
+      </section>
     </div>
   </main>
 
-  <!-- footer, script 등 아래는 기존 코드 그대로 -->
-  <!-- ... (생략) ... -->
+  <footer>
+    <div class="foot">
+      <span>© 과일바구니</span>
+      <span>·</span>
+      <span>문의: <a href="mailto:support@fruitbasket-legal.org">support@fruitbasket-legal.org</a></span>
+      <span>·</span>
+      <span><a href="#privacy">개인정보 처리방침</a></span>
+      <span>·</span>
+      <span><a href="#terms">이용약관</a></span>
+    </div>
+  </footer>
+
+  <!-- 🧠 /home-summary 를 불러와서 스냅샷 섹션에 렌더링 -->
+  <script>
+    (function () {
+      // ✅ 워커 API Base (프로덕션)
+      const API_BASE = "https://gwailbasket-api-production.bbbb33.workers.dev";
+      const HOME_SUMMARY_URL = API_BASE + "/home-summary";
+
+      const priceDateEl = document.getElementById("snapshot-price-date");
+      const indexListEl = document.getElementById("snapshot-index-list");
+      const retailListEl = document.getElementById("snapshot-retail-list");
+      const wholesaleListEl = document.getElementById("snapshot-wholesale-list");
+
+      if (!priceDateEl || !indexListEl || !retailListEl || !wholesaleListEl) {
+        console.warn("[snapshot] snapshot DOM 요소를 찾지 못했습니다.");
+        return;
+      }
+
+      const LEVEL_LABEL = {
+        4: "아주 싸요",
+        3: "꽤 괜찮아요",
+        2: "보통이에요",
+        1: "비싼 편이에요",
+      };
+
+      function createLevelBadge(level) {
+        const span = document.createElement("span");
+        span.className = "snap-level level-" + (level || 2);
+        span.textContent =
+          "Lv." + (level || 2) + " · " + (LEVEL_LABEL[level] || "보통 수준");
+        return span;
+      }
+
+      function formatPrice(price, unit) {
+        if (price == null || isNaN(price)) return "-";
+        const n = Math.round(price);
+        return n.toLocaleString("ko-KR") + (unit ? " " + unit : "");
+      }
+
+      function clearList(el) {
+        while (el.firstChild) el.removeChild(el.firstChild);
+      }
+
+      function renderIndex(indexAll) {
+        clearList(indexListEl);
+        if (!Array.isArray(indexAll) || indexAll.length === 0) {
+          const li = document.createElement("li");
+          li.className = "snap-empty";
+          li.textContent = "지수 데이터를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.";
+          indexListEl.appendChild(li);
+          return;
+        }
+
+        indexAll.forEach((row) => {
+          const li = document.createElement("li");
+
+          const main = document.createElement("div");
+          main.className = "snap-main";
+
+          const emoji = document.createElement("span");
+          emoji.className = "snap-emoji";
+          emoji.textContent = row.emoji || "🍎";
+
+          const name = document.createElement("span");
+          name.className = "snap-name";
+          name.textContent = row.category_name || row.category_code || "기타";
+
+          main.appendChild(emoji);
+          main.appendChild(name);
+
+          const meta = document.createElement("div");
+          meta.className = "snap-meta";
+
+          const priceSpan = document.createElement("span");
+          priceSpan.className = "snap-price";
+          const value =
+            typeof row.index === "number" ? row.index.toFixed(1) : "-";
+          priceSpan.textContent = value + "점";
+
+          const unitSpan = document.createElement("span");
+          unitSpan.className = "snap-unit";
+          unitSpan.textContent = "좋은 가격 품목 비중";
+
+          meta.appendChild(priceSpan);
+          meta.appendChild(unitSpan);
+          meta.appendChild(createLevelBadge(row.level));
+
+          li.appendChild(main);
+          li.appendChild(meta);
+
+          indexListEl.appendChild(li);
+        });
+      }
+
+      function renderTodayList(targetEl, items, channelLabel) {
+        clearList(targetEl);
+        if (!Array.isArray(items) || items.length === 0) {
+          const li = document.createElement("li");
+          li.className = "snap-empty";
+          li.textContent = "추천 품목이 아직 없습니다. 잠시 후 다시 확인해 주세요.";
+          targetEl.appendChild(li);
+          return;
+        }
+
+        items.forEach((r) => {
+          const li = document.createElement("li");
+
+          const main = document.createElement("div");
+          main.className = "snap-main";
+
+          const emoji = document.createElement("span");
+          emoji.className = "snap-emoji";
+          emoji.textContent = r.emoji || "🍎";
+
+          const name = document.createElement("span");
+          name.className = "snap-name";
+          const displayName = r.kind_name
+            ? (r.item_name || r.name || "") + "/" + r.kind_name
+            : (r.item_name || r.name || "품목 미지정");
+          name.textContent = displayName;
+
+          main.appendChild(emoji);
+          main.appendChild(name);
+
+          const meta = document.createElement("div");
+          meta.className = "snap-meta";
+
+          const priceSpan = document.createElement("span");
+          priceSpan.className = "snap-price";
+          priceSpan.textContent = formatPrice(r.price, r.unit);
+
+          const unitSpan = document.createElement("span");
+          unitSpan.className = "snap-unit";
+          const ch =
+            r.product_cls_code === "02"
+              ? "도매 "
+              : r.product_cls_code === "01"
+              ? "소매 "
+              : channelLabel || "";
+          unitSpan.textContent = ch + (r.unit || "");
+
+          meta.appendChild(priceSpan);
+          meta.appendChild(unitSpan);
+          meta.appendChild(createLevelBadge(r.level));
+
+          li.appendChild(main);
+          li.appendChild(meta);
+
+          targetEl.appendChild(li);
+        });
+      }
+
+      function formatPriceDate(ymd) {
+        if (!ymd) return "조사일 정보 없음";
+        return ymd.replace(/-/g, ".") + " 기준";
+      }
+
+      async function loadSnapshot() {
+        try {
+          priceDateEl.textContent = "지수를 불러오는 중입니다…";
+
+          const res = await fetch(HOME_SUMMARY_URL, {
+            method: "GET",
+          });
+
+          if (!res.ok) {
+            throw new Error("HTTP " + res.status);
+          }
+
+          const data = await res.json();
+
+          const priceDate = data.price_date || null;
+          priceDateEl.textContent = formatPriceDate(priceDate);
+
+          renderIndex(data.indexAll || data.index || []);
+          renderTodayList(
+            retailListEl,
+            data.retailTop3 || [],
+            "소매 "
+          );
+          renderTodayList(
+            wholesaleListEl,
+            data.wholesaleTop3 || [],
+            "도매 "
+          );
+        } catch (e) {
+          console.error("[snapshot] home-summary 불러오기 실패:", e);
+          priceDateEl.textContent = "데이터 로딩 실패";
+
+          [indexListEl, retailListEl, wholesaleListEl].forEach((el) => {
+            clearList(el);
+            const li = document.createElement("li");
+            li.className = "snap-empty";
+            li.textContent =
+              "데이터를 불러오지 못했습니다. 새로고침 후에도 계속되면 잠시 후 다시 확인해 주세요.";
+            el.appendChild(li);
+          });
+        }
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", loadSnapshot);
+      } else {
+        loadSnapshot();
+      }
+
+      // 필요하면 주기적 새로고침도 가능
+      // setInterval(loadSnapshot, 60 * 60 * 1000);
+    })();
+  </script>
 </body>
 </html>
