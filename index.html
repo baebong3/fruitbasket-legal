@@ -194,6 +194,24 @@
     .level-4 { background: rgba(220, 38, 38, 0.15); color: #dc2626; } /* 비쌈 */
     .level-1 { background: rgba(34, 197, 94, 0.15); color: #16a34a; } /* 저렴 */
 
+    /* Coupang Banner */
+    .coupang-banner {
+      display: block;
+      margin: 28px auto;
+      text-align: center;
+    }
+    .coupang-banner img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px var(--shadow);
+      transition: all 0.3s;
+    }
+    .coupang-banner:hover img {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--shadow);
+    }
+
     /* Footer */
     footer {
       background: var(--card); border-top: 1px solid var(--border);
@@ -210,6 +228,7 @@
       h2 { margin-top: 60px; }
       .nav-content { gap: 8px; }
       .nav-link { font-size: 0.9rem; padding: 6px 12px; }
+      .coupang-banner img { border-radius: 8px; }
     }
   </style>
 </head>
@@ -335,8 +354,14 @@
             쿠팡 파트너스 활동의 일환으로, 추천 상품 링크를 통해 구매가 발생할 경우 
             이에 따른 일정액의 수수료를 제공받을 수 있습니다.
           </p>
-          <p style="color: var(--sub); font-size: 0.9rem;">
-            * 사용자의 구매 가격에는 아무런 영향을 미치지 않습니다.
+          
+          <a href="https://link.coupang.com/a/dePmGo" target="_blank" referrerpolicy="unsafe-url" class="coupang-banner">
+            <img src="https://ads-partners.coupang.com/banners/940955?subId=&traceId=V0-301-371ae01f4226dec2-I940955&w=728&h=90" alt="쿠팡 파트너스 배너">
+          </a>
+          
+          <p style="color: var(--sub); font-size: 0.9rem; margin-top: 20px;">
+            * 사용자의 구매 가격에는 아무런 영향을 미치지 않습니다.<br>
+            * 이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.
           </p>
         </div>
       </section>
