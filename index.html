@@ -129,6 +129,7 @@
       transition: all 0.2s; font-size: 0.95rem;
     }
     .nav-link:hover { background: var(--accent); color: white; transform: translateY(-2px); }
+    .nav-link.active { background: var(--accent); color: white; }
 
     /* Typography */
     h2 {
@@ -199,13 +200,16 @@
       display: block;
       margin: 28px auto;
       text-align: center;
+      max-width: 728px;
     }
     .coupang-banner img {
-      max-width: 100%;
+      width: 100%;
+      max-width: 728px;
       height: auto;
       border-radius: 12px;
       box-shadow: 0 4px 12px var(--shadow);
       transition: all 0.3s;
+      display: block;
     }
     .coupang-banner:hover img {
       transform: translateY(-2px);
@@ -355,8 +359,8 @@
             이에 따른 일정액의 수수료를 제공받을 수 있습니다.
           </p>
           
-          <a href="https://link.coupang.com/a/dePmGo" target="_blank" referrerpolicy="unsafe-url" class="coupang-banner">
-            <img src="https://ads-partners.coupang.com/banners/940955?subId=&traceId=V0-301-371ae01f4226dec2-I940955&w=728&h=90" alt="쿠팡 파트너스 배너">
+          <a href="https://link.coupang.com/a/dePtfy" target="_blank" referrerpolicy="unsafe-url" class="coupang-banner">
+            <img src="https://ads-partners.coupang.com/banners/940955?subId=&traceId=V0-301-371ae01f4226dec2-I940955&w=728&h=90" alt="쿠팡 신선식품 새벽배송">
           </a>
           
           <p style="color: var(--sub); font-size: 0.9rem; margin-top: 20px;">
@@ -384,28 +388,35 @@
   </footer>
 
   <script>
-    // 간단한 스크롤 스파이 (네비게이션 활성화)
-    const sections = document.querySelectorAll("section");
+    // 스크롤 스파이 개선 (네비게이션 활성화)
+    const sections = document.querySelectorAll("section[id]");
     const navLinks = document.querySelectorAll(".nav-link");
 
-    window.addEventListener("scroll", () => {
+    function activateNavLink() {
       let current = "";
+      const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+      
       sections.forEach((section) => {
-        const sectionTop = section.offsetTop;
-        if (scrollY >= sectionTop - 100) {
+        const sectionTop = section.offsetTop - 150;
+        const sectionHeight = section.offsetHeight;
+        
+        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
           current = section.getAttribute("id");
         }
       });
 
       navLinks.forEach((link) => {
-        link.style.color = "var(--text)";
-        link.style.background = "transparent";
-        if (link.getAttribute("href").includes(current)) {
-          link.style.color = "white";
-          link.style.background = "var(--accent)";
+        link.classList.remove("active");
+        const href = link.getAttribute("href");
+        
+        if (href && href.includes(current) && current !== "") {
+          link.classList.add("active");
         }
       });
-    });
+    }
+
+    window.addEventListener("scroll", activateNavLink);
+    window.addEventListener("load", activateNavLink);
   </script>
 </body>
 </html>
