@@ -1,0 +1,90 @@
+{
+  "api_url": "http://www.kamis.or.kr/service/price/xml.do",
+  "cert_id": "111",
+  "product_cls_code": "02",
+  "country_code": "",
+  "convert_kg_yn": "Y",
+  "categories": [
+    {
+      "category_code": "100",
+      "category_name": "식량작물",
+      "item_codes": [
+        {"code": "111", "name": "쌀"},
+        {"code": "112", "name": "찹쌀"},
+        {"code": "141", "name": "콩"}
+      ]
+    },
+    {
+      "category_code": "200",
+      "category_name": "채소류",
+      "item_codes": [
+        {"code": "211", "name": "배추"},
+        {"code": "212", "name": "양배추"},
+        {"code": "213", "name": "시금치"},
+        {"code": "214", "name": "상추"},
+        {"code": "215", "name": "얼갈이배추"},
+        {"code": "221", "name": "수박"},
+        {"code": "222", "name": "참외"},
+        {"code": "223", "name": "오이"},
+        {"code": "224", "name": "호박"},
+        {"code": "225", "name": "토마토"},
+        {"code": "226", "name": "딸기"},
+        {"code": "231", "name": "무"},
+        {"code": "232", "name": "당근"},
+        {"code": "233", "name": "열무"},
+        {"code": "241", "name": "건고추"},
+        {"code": "242", "name": "풋고추"},
+        {"code": "243", "name": "붉은고추"},
+        {"code": "244", "name": "피마늘"},
+        {"code": "245", "name": "양파"},
+        {"code": "246", "name": "파"},
+        {"code": "247", "name": "생강"},
+        {"code": "248", "name": "고춧가루"},
+        {"code": "251", "name": "가지"},
+        {"code": "252", "name": "미나리"},
+        {"code": "253", "name": "깻잎"},
+        {"code": "254", "name": "부추"},
+        {"code": "255", "name": "피망"},
+        {"code": "256", "name": "파프리카"},
+        {"code": "257", "name": "브로콜리"}
+      ]
+    },
+    {
+      "category_code": "300",
+      "category_name": "특용작물",
+      "item_codes": [
+        {"code": "312", "name": "참깨"},
+        {"code": "313", "name": "들깨"},
+        {"code": "314", "name": "땅콩"},
+        {"code": "315", "name": "느타리버섯"},
+        {"code": "316", "name": "팽이버섯"},
+        {"code": "317", "name": "새송이버섯"}
+      ]
+    },
+    {
+      "category_code": "400",
+      "category_name": "과일류",
+      "item_codes": [
+        {"code": "411", "name": "사과"},
+        {"code": "412", "name": "배"},
+        {"code": "413", "name": "복숭아"},
+        {"code": "414", "name": "포도"},
+        {"code": "415", "name": "감귤"},
+        {"code": "416", "name": "단감"},
+        {"code": "418", "name": "바나나"},
+        {"code": "419", "name": "참다래(키위)"},
+        {"code": "420", "name": "파인애플"},
+        {"code": "421", "name": "오렌지"},
+        {"code": "422", "name": "자몽"},
+        {"code": "423", "name": "레몬"},
+        {"code": "424", "name": "체리"},
+        {"code": "425", "name": "건포도"},
+        {"code": "426", "name": "건망고"},
+        {"code": "427", "name": "블루베리"}
+      ]
+    }
+  ],
+  "default_kind_code": "01",
+  "default_product_rank_code": "04",
+  "collect_days_back": 1
+}

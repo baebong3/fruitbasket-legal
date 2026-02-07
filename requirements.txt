@@ -1,3 +1,4 @@
 requests>=2.31.0
 openpyxl>=3.1.2
 python-dotenv>=1.0.0
+# sqlite3는 Python 표준 라이브러리에 포함
