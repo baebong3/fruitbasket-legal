@@ -57,14 +57,18 @@ def get_api_key() -> str:
 def build_params(config: dict, target_date: datetime) -> dict:
     start_hour = config.get("search_period", {}).get("start_hour", "0000")
     end_hour = config.get("search_period", {}).get("end_hour", "2359")
-    date_str = target_date.strftime("%Y%m%d")
+    days_back = config.get("days_back", 0)
+
+    begin_date = target_date - timedelta(days=days_back)
+    begin_date_str = begin_date.strftime("%Y%m%d")
+    end_date_str = target_date.strftime("%Y%m%d")
 
     return {
         "pageNo": 1,
         "numOfRows": config.get("num_of_rows", 999),
         "inqryDiv": config.get("inqry_div", "1"),
-        "inqryBgnDt": f"{date_str}{start_hour}",
-        "inqryEndDt": f"{date_str}{end_hour}",
+        "inqryBgnDt": f"{begin_date_str}{start_hour}",
+        "inqryEndDt": f"{end_date_str}{end_hour}",
         "type": "json",
     }
 
