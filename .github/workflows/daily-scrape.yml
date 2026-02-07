@@ -1,0 +1,36 @@
+name: 나라장터 용역공고 일일 수집
+
+on:
+  schedule:
+    # 매일 한국시간 09:00 (UTC 00:00)
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run scraper
+        env:
+          G2B_API_KEY: ${{ secrets.G2B_API_KEY }}
+        run: python scraper.py
+
+      - name: Upload Excel artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g2b-results-${{ github.run_id }}
+          path: output/*.xlsx
+          retention-days: 30
