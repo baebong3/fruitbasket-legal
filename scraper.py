@@ -4,6 +4,7 @@ import json
 import logging
 import os
 import sys
+import time
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 import requests
@@ -22,6 +23,8 @@ logger = logging.getLogger(__name__)
 
 BASE_URL = "http://apis.data.go.kr/1230000/BidPublicInfoService/getBidPblancListInfoServc"
 KST = timezone(timedelta(hours=9))
+MAX_RETRIES = 3
+RETRY_BACKOFF_BASE = 2  # seconds
 
 COLUMNS = [
     ("bidNtceNo", "공고번호"),
@@ -66,6 +69,43 @@ def build_params(config: dict, target_date: datetime) -> dict:
     }
 
 
+def _request_with_retry(url: str, params: dict) -> requests.Response | None:
+    """Send GET request with retry and exponential backoff for transient errors."""
+    for attempt in range(MAX_RETRIES):
+        try:
+            resp = requests.get(url, params=params, timeout=30)
+            if resp.status_code >= 500 and attempt < MAX_RETRIES - 1:
+                wait = RETRY_BACKOFF_BASE ** (attempt + 1)
+                logger.warning(
+                    "서버 오류 %d, %d초 후 재시도 (%d/%d)",
+                    resp.status_code, wait, attempt + 1, MAX_RETRIES,
+                )
+                time.sleep(wait)
+                continue
+            resp.raise_for_status()
+            return resp
+        except requests.ConnectionError as e:
+            if attempt < MAX_RETRIES - 1:
+                wait = RETRY_BACKOFF_BASE ** (attempt + 1)
+                logger.warning("연결 오류, %d초 후 재시도 (%d/%d): %s", wait, attempt + 1, MAX_RETRIES, e)
+                time.sleep(wait)
+                continue
+            logger.error("API 요청 실패 (최대 재시도 초과): %s", e)
+            return None
+        except requests.Timeout as e:
+            if attempt < MAX_RETRIES - 1:
+                wait = RETRY_BACKOFF_BASE ** (attempt + 1)
+                logger.warning("타임아웃, %d초 후 재시도 (%d/%d): %s", wait, attempt + 1, MAX_RETRIES, e)
+                time.sleep(wait)
+                continue
+            logger.error("API 요청 타임아웃 (최대 재시도 초과): %s", e)
+            return None
+        except requests.HTTPError as e:
+            logger.error("API 요청 실패: %s", e)
+            return None
+    return None
+
+
 def fetch_bids(api_key: str, config: dict, target_date: datetime) -> list[dict]:
     params = build_params(config, target_date)
     url = f"{BASE_URL}?ServiceKey={api_key}"
@@ -76,11 +116,8 @@ def fetch_bids(api_key: str, config: dict, target_date: datetime) -> list[dict]:
         params["pageNo"] = page
         logger.info("API 호출 중... (페이지 %d)", page)
 
-        try:
-            resp = requests.get(url, params=params, timeout=30)
-            resp.raise_for_status()
-        except requests.RequestException as e:
-            logger.error("API 요청 실패: %s", e)
+        resp = _request_with_retry(url, params)
+        if resp is None:
             break
 
         try:
