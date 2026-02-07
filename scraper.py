@@ -6,8 +6,6 @@ import os
 import sys
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
-from urllib.parse import urlencode
-
 import requests
 from dotenv import load_dotenv
 from openpyxl import Workbook
@@ -53,13 +51,12 @@ def get_api_key() -> str:
     return key
 
 
-def build_params(api_key: str, config: dict, target_date: datetime) -> dict:
+def build_params(config: dict, target_date: datetime) -> dict:
     start_hour = config.get("search_period", {}).get("start_hour", "0000")
     end_hour = config.get("search_period", {}).get("end_hour", "2359")
     date_str = target_date.strftime("%Y%m%d")
 
     return {
-        "ServiceKey": api_key,
         "pageNo": 1,
         "numOfRows": config.get("num_of_rows", 999),
         "inqryDiv": config.get("inqry_div", "1"),
@@ -70,7 +67,8 @@ def build_params(api_key: str, config: dict, target_date: datetime) -> dict:
 
 
 def fetch_bids(api_key: str, config: dict, target_date: datetime) -> list[dict]:
-    params = build_params(api_key, config, target_date)
+    params = build_params(config, target_date)
+    url = f"{BASE_URL}?ServiceKey={api_key}"
     all_items = []
     page = 1
 
@@ -79,7 +77,7 @@ def fetch_bids(api_key: str, config: dict, target_date: datetime) -> list[dict]:
         logger.info("API 호출 중... (페이지 %d)", page)
 
         try:
-            resp = requests.get(BASE_URL, params=params, timeout=30)
+            resp = requests.get(url, params=params, timeout=30)
             resp.raise_for_status()
         except requests.RequestException as e:
             logger.error("API 요청 실패: %s", e)
