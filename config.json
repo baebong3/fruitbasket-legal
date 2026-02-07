@@ -1,0 +1,9 @@
+{
+  "keywords": ["조사", "연구"],
+  "inqry_div": "1",
+  "num_of_rows": 999,
+  "search_period": {
+    "start_hour": "0000",
+    "end_hour": "2359"
+  }
+}
