@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 
 BASE_URL = "http://apis.data.go.kr/1230000/BidPublicInfoService/getBidPblancListInfoServc"
 KST = timezone(timedelta(hours=9))
-MAX_RETRIES = 3
+MAX_RETRIES = 5
 RETRY_BACKOFF_BASE = 2  # seconds
 
 COLUMNS = [
@@ -78,14 +78,19 @@ def _request_with_retry(url: str, params: dict) -> requests.Response | None:
     for attempt in range(MAX_RETRIES):
         try:
             resp = requests.get(url, params=params, timeout=30)
-            if resp.status_code >= 500 and attempt < MAX_RETRIES - 1:
-                wait = RETRY_BACKOFF_BASE ** (attempt + 1)
-                logger.warning(
-                    "서버 오류 %d, %d초 후 재시도 (%d/%d)",
-                    resp.status_code, wait, attempt + 1, MAX_RETRIES,
+            if resp.status_code >= 500:
+                if attempt < MAX_RETRIES - 1:
+                    wait = RETRY_BACKOFF_BASE ** (attempt + 1)
+                    logger.warning(
+                        "서버 오류 %d, %d초 후 재시도 (%d/%d)",
+                        resp.status_code, wait, attempt + 1, MAX_RETRIES,
+                    )
+                    time.sleep(wait)
+                    continue
+                logger.error(
+                    "서버 오류 %d (최대 재시도 초과)", resp.status_code,
                 )
-                time.sleep(wait)
-                continue
+                return None
             resp.raise_for_status()
             return resp
         except requests.ConnectionError as e:
@@ -115,13 +120,22 @@ def fetch_bids(api_key: str, config: dict, target_date: datetime) -> list[dict]:
     url = f"{BASE_URL}?ServiceKey={api_key}"
     all_items = []
     page = 1
+    original_rows = params["numOfRows"]
 
     while True:
         params["pageNo"] = page
-        logger.info("API 호출 중... (페이지 %d)", page)
+        logger.info("API 호출 중... (페이지 %d, numOfRows=%d)", page, params["numOfRows"])
 
         resp = _request_with_retry(url, params)
         if resp is None:
+            if params["numOfRows"] > 10:
+                reduced = max(params["numOfRows"] // 2, 10)
+                logger.warning(
+                    "요청 실패, 페이지 크기를 %d에서 %d로 줄여 재시도합니다.",
+                    params["numOfRows"], reduced,
+                )
+                params["numOfRows"] = reduced
+                continue
             break
 
         try:
