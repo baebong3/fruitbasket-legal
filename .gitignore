@@ -1,5 +1,6 @@
 .env
 output/*.xlsx
+output/*.db
 __pycache__/
 *.pyc
 .venv/
